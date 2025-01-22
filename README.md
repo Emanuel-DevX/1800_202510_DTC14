@@ -63,7 +63,7 @@ project-name/
 
 ## Contributors
 
-- **Your Name** - BCIT CST Student with a passion for creating user-friendly applications. Fun fact: Loves solving Rubik's Cubes in under a minute.
+- Hi im Allen - I like solving puzzles and I enjoy coding 
 - **Emanuel** - BCIT CST Student, Backend enthusiast with a knack for pro;blem solvingattitude. Fun fact: Loves playing chess ("Or to waste my time").
 
 ---
