@@ -10,6 +10,7 @@ This client-side JavaScript web application provides real-time weather updates f
 
 Developed for the [Course Name] course, applying User-Centred Design practices, agile project management processes, integrating a weather API, and Firebase backend services.
 
+
 ---
 
 ## Features
@@ -58,7 +59,8 @@ project-name/
 ---
 
 ## Contributors
-- **Your Name** - BCIT CST Student with a passion for creating user-friendly applications. Fun fact: Loves solving Rubik's Cubes in under a minute.
+- **This is Jun** - a contributor from team 14.
+
 - **Teammate Name** - BCIT CST Student, Frontend enthusiast with a knack for creative design. Fun fact: Has a collection of over 50 houseplants.
 
 ---
