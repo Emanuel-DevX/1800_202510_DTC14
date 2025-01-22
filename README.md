@@ -59,7 +59,7 @@ project-name/
 ---
 
 ## Contributors
-- **This is Jun** - a contributor from team 14.
+- Jun add in this line -  **This is Jun** - a contributor from team 14.
 
 - **Teammate Name** - BCIT CST Student, Frontend enthusiast with a knack for creative design. Fun fact: Has a collection of over 50 houseplants.
 
