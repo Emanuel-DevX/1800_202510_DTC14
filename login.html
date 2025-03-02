@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <meta name="comp1800 template" content="My 1800 App" />
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+</head>
+
+<body class="w-screen bg-lime-50">
+    <header>
+        <nav class="w-full h-32 bg-green-900 text-white py-4 px-10 mt-auto">
+            <div class="logo-moto flex flex-col items-start">
+                <div
+                    class="logo h-24 w-24 text-center flex items-center border bg-green-900 text-white font-extrabold font-serif text-sm p-1 rounded-full">
+                    <h1>Community Cart</h1>
+                </div>
+                
+            </div>
+        </nav>
+    </header>
+
+    <main class="m-23">
+        <div class="container"></div>
+        <div id="firebaseui-auth-container"></div>
+        <div id="loader">Loading...</div>
+
+    </main>
+
+    <footer class="w-full bg-green-900 text-white pt-6 mt-auto">
+        <div class="container mx-auto flex flex-col items-center">
+            <div class="text-center mb-4">
+                <h3 class="font-serif text-lg font-bold">Community Cart</h3>
+                <p class="text-sm"><em>Shop together, save together!</em></p>
+            </div>
+            <nav class="mb-4">
+                <ul class="flex flex-wrap justify-center space-x-4">
+                    <li><a href="#" class="hover:underline">Home</a></li>
+                    <li><a href="#" class="hover:underline">About</a></li>
+                    <li><a href="#" class="hover:underline">Contact</a></li>
+                    <li><a href="#" class="hover:underline">Privacy Policy</a></li>
+                </ul>
+            </nav>
+            <div class="text-sm">
+                <p>&copy; 2025 Community Cart. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./scripts/firebaseAPI_DTC14.js"></script>
+    <script src="./scripts/skeleton.js"></script>
+    <script src="./scripts/authentication.js"></script>
+</body>
+
+</html>

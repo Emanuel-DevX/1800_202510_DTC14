@@ -14,20 +14,21 @@
     <!-- Other libraries go here -->
 
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="./scripts/firebaseAPI_DTC14.js"></script>
 
     <!-- Link to styles of your own -->
     <!-- <link rel="stylesheet" href="./styles/style.css"> -->
   </head>
 
-  <body class="px-2 w-screen bg-lime-50">
+  <body class=" w-screen bg-lime-50">
     <!------------------------------>
     <!-- Your HTML Layout go here -->
     <!------------------------------>
     <!-- Stuff for body goes here -->
 
     <div class="landing w-full h-screen flex flex-col justify-around items-center ">
-        <div class="logo-moto flex flex-col items-center">
-        <div class="logo h-24 w-24 text-center flex items-center bg-green-900 text-white font-extrabold font-serif text-sm p-2 rounded-full">
+        <div class="py-2 logo-moto flex flex-col items-center">
+        <div class="logo h-24 w-24 border text-center flex items-center bg-green-900 text-white font-extrabold font-serif text-sm p-1 rounded-full">
             <h1>Community Cart</h1>
         </div>
         <h2 class="font-bold text-center my-1"><em>Shop together, save together!</em></h2>
@@ -46,9 +47,9 @@
             </div>
             <div class="call-to-action">
 
-              <button class="login self-center my-10 p-3 border-1  shadow-2xl rounded-3xl bg-green-900 text-white font-bold border-white hover:bg-lime-50 hover:border-black hover:border-4 hover:text-black active:bg-lime-50 active:text-black active:border-4 active:border-black">
+              <a href="login.html" class="login self-center my-10 p-3 border-1  shadow-2xl rounded-3xl bg-green-900 text-white font-bold border-white hover:bg-lime-50 hover:border-black hover:border-4 hover:text-black active:bg-lime-50 active:text-black active:border-4 active:border-black">
                 Login / Sign Up 
-              </button>
+              </a>
 
             </div>
         </div>
