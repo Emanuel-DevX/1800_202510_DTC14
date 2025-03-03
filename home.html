@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Community Cart</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="scripts/home.js"></script>
   </head>
-  <body class="w-screen h-screen bg-lime-50">
+  <body class="w-screen h-screen">
     <div class="layout max-w-screen-xl mx-auto">
       <header class="bg-green-900 max-h-16 rounded-b-lg mb-6">
         <div class="logo-profile h-16 flex justify-between px-3">
@@ -30,12 +32,16 @@
           </div>
         </div>
       </header>
-      <main class="flex w-full">
+      <main class="flex w-full justify-between">
         <nav
           class="group hover:w-48 w-14 h-[90vh] flex flex-col justify-center"
         >
-          <div class="nav-buttons border-[4px] border-green-700 rounded-full group-hover:rounded-2xl ">
-            <div class="home-button items-end flex hover:shadow-lg my-10 h-12 p-1">
+          <div
+            class="nav-buttons border-[4px] border-green-700 rounded-full group-hover:rounded-2xl"
+          >
+            <div
+              class="home-button items-end flex hover:shadow-lg my-10 h-12 p-1"
+            >
               <svg
                 class="text-green-900 font-extrabold min-w-9 w-9 mr-2"
                 xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +73,6 @@
                 stroke="currentColor"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-         
                 stroke-width="2.5"
               >
                 <path
@@ -82,7 +87,9 @@
                 Spendings
               </h1>
             </div>
-            <div class="groups-button items-end flex hover:shadow-lg my-10 h-12 p-1">
+            <div
+              class="groups-button items-end flex hover:shadow-lg my-10 h-12 p-1"
+            >
               <svg
                 class="text-green-900 font-extrabold min-w-9 w-9 mr-2"
                 xmlns="http://www.w3.org/2000/svg"
@@ -104,7 +111,9 @@
               </h1>
             </div>
 
-            <div class="home-button items-end flex hover:shadow-lg my-10 h-12 p-1">
+            <div
+              class="home-button items-end flex hover:shadow-lg my-10 h-12 p-1"
+            >
               <svg
                 class="text-green-900 font-extrabold min-w-9 w-9 mr-2"
                 xmlns="http://www.w3.org/2000/svg"
@@ -128,8 +137,138 @@
             </div>
           </div>
         </nav>
-        <div class="main-content"></div>
-        <aside></aside>
+        <div class="main-content shadow w-full mx-3 flex flex-col">
+          <div class="quick-action">
+            <h3 class="font-bold text-xl">Filter</h3>
+
+            <div class="filter-buttons mx-3">
+              <button
+                class="border-2 border-green-900/50 text-green-900 font-bold rounded-full px-1 mr-2"
+              >
+                Popular
+              </button>
+              <button
+                class="border-2 border-green-900/50 text-green-900 font-bold rounded-full px-1 mr-2"
+              >
+                Food
+              </button>
+
+              <button
+                class="border-2 border-green-900/50 text-green-900 font-bold rounded-full px-1 mr-2"
+              >
+                Veggie
+              </button>
+              <button
+                class="border-2 border-green-900/50 text-green-900 font-bold rounded-full px-1 mr-2"
+              >
+                Upcoming
+              </button>
+              <button
+                class="border-2 border-green-900/50 text-green-900 font-bold rounded-full px-1 mr-2"
+              >
+                Electronics
+              </button>
+
+              <button
+                class="border-2 border-green-900/50 text-green-900 font-bold rounded-full px-1 mr-2"
+              >
+                Cloth
+              </button>
+              <button
+                class="border-2 border-green-900/50 text-green-900 font-bold rounded-full px-1 mr-2"
+              >
+                Shoes
+              </button>
+              <button
+                class="border-2 border-green-900/50 text-green-900 font-bold rounded-full px-1 mr-2"
+              >
+                Tools
+              </button>
+
+              <button
+                class="border-2 border-green-900/50 text-green-900 font-bold rounded-full px-1 mr-2"
+              >
+                Furnitures
+              </button>
+            </div>
+          </div>
+          <div class="my-feeds mt-4">
+            <h2 class="font-bold text-xl mb-2">My Feeds</h2>
+            <div class="posts mx-3 flex flex-wrap">
+              <div
+                class="post-1 w-80 shadow-lg bg-green-800 text-lime-50 rounded-2xl mx-2 mb-6"
+              >
+                <div class="image max-h-48 overflow-hidden">
+                  <img
+                    class="w-full rounded-t-xl"
+                    src="images/apples.jpg"
+                    alt=""
+                  />
+                </div>
+                <div class="post-info px-2">
+                  <h3 class="font-bold text-lg">
+                    Organic Apples - Bulk Order 🍏
+                  </h3>
+                  <p>
+                    Get fresh organic apples at a discount! Need 5 more buyers.
+                  </p>
+                  <p><span class="font-bold">Orginal price:</span> $25 /lb</p>
+                  <p><span class="font-bold">Bulk price:</span> $15 /lb</p>
+
+                  <div class="card-actions flex justify-between items-end mt-4">
+                    <div class="left-buttons flex">
+                      <div class="like mr-2 flex flex-col items-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          width="24"
+                          height="24"
+                          stroke-width="2.5"
+                        >
+                          <path
+                            d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"
+                          ></path>
+                        </svg>
+                        <p>2.5k</p>
+                      </div>
+                      <div class="share flex flex-col mx-2 items-center">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          width="24"
+                          height="24"
+                          stroke-width="2.5"
+                        >
+                          <path
+                            d="M13 4v4c-6.575 1.028 -9.02 6.788 -10 12c-.037 .206 5.384 -5.962 10 -6v4l8 -7l-8 -7z"
+                          ></path>
+                        </svg>
+                        <p>30</p>
+                      </div>
+                    </div>
+
+                    <button
+                      class="border-2 px-2 rounded mb-2 border-white hover:bg-lime-50 hover:text-green-900 font-bold"
+                    >
+                      Join
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <aside class=" min-w-40">
+          <h1 class="font-bold text-xl">Popular Groups</h1>
+        </aside>
       </main>
       <footer></footer>
     </div>

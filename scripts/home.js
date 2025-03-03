@@ -20,3 +20,23 @@ const posts = [
     image: "earbuds.jpg"
   }
 ];
+
+
+function home(){
+    console.log('in home')
+       console.log('in home');
+    let post1 = $('.post-1').clone();  // Clone the template post
+
+    for (let i = 0; i < 5; i++) {
+        $('.posts').append(post1.clone()); // Append a fresh clone each time
+    }
+    
+}
+
+function setup(){
+home()
+}
+
+
+
+$(document).ready(setup)
