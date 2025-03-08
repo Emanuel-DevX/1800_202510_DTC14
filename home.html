@@ -134,32 +134,30 @@
               ></div>
             </div>
 
-            <div
-              class="notification-button my-10 h-12 p-1 cursor-pointer"
-            >
-            <div class="peer items-end flex">
-              <svg
-                class="text-green-900 font-extrabold min-w-9 w-9 mr-2"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
-                />
-              </svg>
+            <div class="notification-button my-10 h-12 p-1 cursor-pointer">
+              <div class="peer items-end flex">
+                <svg
+                  class="text-green-900 font-extrabold min-w-9 w-9 mr-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
+                  />
+                </svg>
 
-              <h1
-                class="hidden group-hover:block text-xl font-extrabold text-green-900"
-              >
-                Notifications
-              </h1>
-            </div>
-                 <div
+                <h1
+                  class="hidden group-hover:block text-xl font-extrabold text-green-900"
+                >
+                  Notifications
+                </h1>
+              </div>
+              <div
                 class="ml-[13px] peer-hover:border-5 rounded-full w-2 h-2 border-green-900"
               ></div>
             </div>
@@ -172,11 +170,12 @@
           <div id="create-post ">
             <div
               id="post-btn"
-              class="flex items-center my-2 text-green-900 cursor-pointer"
+              class="peer flex justify-between items-center my-2 text-green-900 cursor-pointer"
             >
-              <h2 class="font-bold text-2xl mb-2">Post</h2>
+              <h2 class="font-bold text-2xl mb-2 mr-4">Create a Post +</h2>
               <svg
-                class="w-5"
+                id="post-icon"
+                class="w-5 mr-5"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 20 20"
@@ -190,7 +189,101 @@
                 />
               </svg>
             </div>
-            <div id="post-form" class="h-64 hidden"></div>
+            <div id="post-form" class="hidden px-12 py-6 mb-12 flex">
+              <div class="md:flex md:justify-center md:items-center md:w-1/2 md:px-5  hidden">
+                <img
+                  class="rounded-4xl max-h-120 "
+                  src="https://images.unsplash.com/photo-1580440282860-8555b1ae102c?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt=""
+                />
+              </div>
+              <form id="postForm" class="space-y-4 md:min-w-1/2 w-full">
+                <!-- Title -->
+                <div>
+                  <label class="block text-green-900 font-medium">Title</label>
+                  <input
+                    type="text"
+                    id="title"
+                    required
+                    class="w-full p-2 border rounded"
+                    placeholder="Enter post title"
+                  />
+                </div>
+
+                <!-- Description -->
+                <div>
+                  <label class="block text-green-900 font-medium"
+                    >Description</label
+                  >
+                  <textarea
+                    id="description"
+                    required
+                    class="w-full p-2 border rounded"
+                    rows="3"
+                    placeholder="Describe the purchase"
+                  ></textarea>
+                </div>
+
+                <div class="flex flex-col gap-4">
+                  <!-- Category -->
+                  <div class="">
+                    <label class="block text-green-900 font-medium"
+                      >Category</label
+                    >
+                    <select id="category" class="w-full p-2 border rounded">
+                      <option>Electronics</option>
+                      <option>Clothing</option>
+                      <option>Groceries</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+
+                  <!-- Pricing & Quantity -->
+                  <div class="">
+                    <label class="block text-green-900 font-medium"
+                      >Estimated Price ($)</label
+                    >
+                    <input
+                      type="number"
+                      id="price"
+                      class="w-full p-2 border rounded"
+                      placeholder="Price per item"
+                    />
+                  </div>
+                  <div class="">
+                    <label class="block text-green-900 font-medium"
+                      >Min Order Quantity</label
+                    >
+                    <input
+                      type="number"
+                      id="quantity"
+                      class="w-full p-2 border rounded"
+                      placeholder="Min people needed"
+                    />
+                  </div>
+
+                  <!-- Deadline -->
+                  <div class="">
+                    <label class="block text-green-900 font-medium"
+                      >Deadline to Join</label
+                    >
+                    <input
+                      type="date"
+                      id="deadline"
+                      class="w-full p-2 border rounded"
+                    />
+                  </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button
+                  type="submit"
+                  class="w-full bg-green-900 text-white py-2 rounded hover:bg-green-800"
+                >
+                  Post
+                </button>
+              </form>
+            </div>
           </div>
 
           <div class="quick-action">
@@ -251,7 +344,7 @@
           </div>
           <div class="my-feeds mt-4">
             <h2 class="font-bold text-xl mb-2">My Feeds</h2>
-            <div class="posts md:mx-3 flex flex-wrap px-2">
+            <div class="posts md:mx-3 flex flex-wrap px-2 justify-center">
               <div
                 class="post-1 max-w-[320px] md:w-80 lg:w-[31%] shadow-lg bg-green-800 text-lime-50 rounded-2xl md:mx-2 mb-6"
               >

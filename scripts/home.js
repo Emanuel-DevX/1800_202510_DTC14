@@ -14,13 +14,6 @@ function insertNameFromFirestore() {
   });
 }
 
-
-
-// Call the function when the page loads
-document.addEventListener("DOMContentLoaded", nav);
-
-
-
 // function home() {
 //   nav(); // Load the navigation first
 
@@ -35,8 +28,6 @@ document.addEventListener("DOMContentLoaded", nav);
 //     document.querySelector(".posts").appendChild(clonedPost);
 //   }
 // }
-
-
 
 // function home() {
 //    // Load the navigation first
@@ -53,11 +44,19 @@ document.addEventListener("DOMContentLoaded", nav);
 //   }
 // }
 
+function postPage() {
+  document.getElementById("post-btn").addEventListener("click", function () {
+    let form = document.getElementById("post-form");
+    let icon = document.getElementById("post-icon");
 
+    form.classList.toggle("hidden");
+    icon.classList.toggle("rotate-180"); // Rotate icon for animation
+  });
+}
 
 function setup() {
   insertNameFromFirestore();
-  nav();
+  postPage();
   // home();
 
   const postBtn = document.getElementById("post-btn");
