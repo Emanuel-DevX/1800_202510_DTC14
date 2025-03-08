@@ -18,7 +18,6 @@ function insertNameFromFirestore() {
   })
 }
 
-insertNameFromFirestore();
 
 
 
@@ -85,6 +84,8 @@ function home() {
 }
 
 function setup() {
+  insertNameFromFirestore();
+
   home();
 
   // Select the post button after DOM is loaded
