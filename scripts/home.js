@@ -42,7 +42,7 @@ const posts = [
     bulkPrice: 2.8,
     participants: 3,
     slotsLeft: 5,
-    image: "apple.jpg"
+    image: "apple.jpg",
   },
   {
     id: 2,
@@ -52,13 +52,53 @@ const posts = [
     bulkPrice: 40,
     participants: 7,
     slotsLeft: 3,
-    image: "earbuds.jpg"
-  }
+    image: "earbuds.jpg",
+  },
 ];
 
-function setup() {
-  home()
+
+function nav(){
+  fetch("pages/nav.html")
+    .then((response) => response.text()) // Convert response to text
+    .then((html) => {
+      document.getElementById("md-nav").innerHTML = html;
+    })
+    .catch((error) => console.error("Error loading navbar:", error));
 }
 
+function home() {
+  nav()
+  // console.log("In home");
 
+  // // Select the template post
+  // let postTemplate = document.querySelector(".post-1");
 
+  // if (!postTemplate) {
+  //   console.error("Template post (.post-1) not found!");
+  //   return;
+  // }
+
+  // for (let i = 0; i < 5; i++) {
+  //   let clonedPost = postTemplate.cloneNode(true); // Clone the template
+  //   document.querySelector(".posts").appendChild(clonedPost); // Append to .posts container
+  // }
+}
+
+function setup() {
+  home();
+
+  // Select the post button after DOM is loaded
+  const postBtn = document.getElementById("post-btn");
+
+  if (postBtn) {
+    console.log(postBtn);
+    postBtn.addEventListener("click", () => {
+      console.log("Post button clicked!");
+    });
+  } else {
+    console.error("post-btn not found in the DOM");
+  }
+}
+
+// Wait for DOM to load before running setup
+document.addEventListener("DOMContentLoaded", setup);
