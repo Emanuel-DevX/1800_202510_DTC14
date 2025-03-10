@@ -34,14 +34,14 @@ function setup() {
   insertNameFromFirestore();
   home();
 
-  const postBtn = document.getElementById("post-btn");
-  if (postBtn) {
-    postBtn.addEventListener("click", () => {
-      console.log("Post button clicked!");
-    });
-  } else {
-    console.error("post-btn not found in the DOM");
-  }
+  // const postBtn = document.getElementById("post-btn");
+  // if (postBtn) {
+  //   postBtn.addEventListener("click", () => {
+  //     console.log("Post button clicked!");
+  //   });
+  // } else {
+  //   console.error("post-btn not found in the DOM");
+  // }
 }
 
 document.addEventListener("DOMContentLoaded", setup);
