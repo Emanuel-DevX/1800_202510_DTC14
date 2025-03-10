@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <meta name="comp1800 template" content="My 1800 App" />
 
@@ -16,55 +15,71 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css"
+    />
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
-</head>
+  </head>
 
-<body class="relative w-screen bg-lime-50">
-    <header>
+  <body class="bg-lime-50">
+    <div class="body-content relative max-w-screen-xl mx-auto ">
+      <header>
         <header class="bg-green-900 max-h-16 rounded-b-lg mb-6">
-            <div class="logo-profile h-16 flex justify-between px-3">
-                <div class="logo-menu flex">
-                    <div class="logo w-22 h-22 border-5 border-lime-50 rounded-full bg-center bg-cover bg-full" style="
-                        background-image: url(/images/community-cart--high-resolution-logo.png);
-                      "></div>
-                    <div class="self-center mx-4 font-bold text-lime-50 ">
-                        <h1><span class="font-extrabold">CommunityCart</span> / Log In</h1>
-                    </div>
-                </div>
+          <div class="logo-profile h-16 flex justify-between px-3">
+            <div class="logo-menu flex">
+              <div
+                class="logo w-22 h-22 border-5 border-lime-50 rounded-full bg-center bg-cover bg-full"
+                style="
+                  background-image: url(/images/community-cart--high-resolution-logo.png);
+                "
+              ></div>
+              <div class="self-center mx-4 font-bold text-lime-50">
+                <h1>
+                  <span class="font-extrabold">CommunityCart</span> / Log In
+                </h1>
+              </div>
             </div>
+          </div>
         </header>
-    </header>
+      </header>
 
-    <main class="flex items-center justify-center -m-6 h-screen bg-cover bg-center bg-[url('images/loginbg.png')]">
+      <main
+        class="flex w-full items-center justify-center -mt-6 h-screen bg-cover bg-center bg-[url('images/loginbg.png')]"
+      >
         <div class="mb-32" id="firebaseui-auth-container"></div>
         <div id="loader">Loading...</div>
+      </main>
 
-    </main>
-
-    <footer class="w-full bg-green-900 text-white pt-6 absolute bottom-0 mt-auto">
+      <footer
+        class="w-full bg-green-900 text-white pt-6 absolute bottom-0 mt-auto"
+      >
         <div class="container mx-auto flex flex-col items-center">
-            <div class="text-center mb-4">
-                <h3 class="font-serif text-lg font-bold">Community Cart</h3>
-                <p class="text-sm"><em>Shop together, save together!</em></p>
-            </div>
-            <nav class="mb-4">
-                <ul class="flex flex-wrap justify-center space-x-4">
-                    <li><a href="#" class="hover:underline">Home</a></li>
-                    <li><a href="#" class="hover:underline">About</a></li>
-                    <li><a href="#" class="hover:underline">Contact</a></li>
-                    <li><a href="#" class="hover:underline">Privacy Policy</a></li>
-                </ul>
-            </nav>
-            <div class="text-sm">
-                <p>&copy; 2025 Community Cart. All rights reserved.</p>
-            </div>
+          <div class="text-center mb-4">
+            <h3 class="font-serif text-lg font-bold">Community Cart</h3>
+            <p class="text-sm"><em>Shop together, save together!</em></p>
+          </div>
+          <nav class="mb-4">
+            <ul class="flex flex-wrap justify-center space-x-4">
+              <li><a href="index.html" class="hover:underline">Home</a></li>
+              <li>
+                <a href="index.html#about" class="hover:underline">About</a>
+              </li>
+              <li>
+                <a href="index.html#contact" class="hover:underline">Contact</a>
+              </li>
+            </ul>
+          </nav>
+          <div class="text-sm">
+            <p>&copy; 2025 Community Cart. All rights reserved.</p>
+          </div>
         </div>
-    </footer>
+      </footer>
 
-    <script src="./scripts/firebaseAPI_DTC14.js"></script>
-    <script src="./scripts/skeleton.js"></script>
-    <script src="./scripts/authentication.js"></script>
-</body>
-
+      <script src="./scripts/firebaseAPI_DTC14.js"></script>
+      <script src="./scripts/skeleton.js"></script>
+      <script src="./scripts/authentication.js"></script>
+    </div>
+  </body>
 </html>
