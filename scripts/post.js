@@ -79,10 +79,15 @@ async function addPost(postData) {
 }
 
 function submitForm() {
+
   // Attach the event listener to the form
   document
     .getElementById("postForm")
     .addEventListener("submit", function (event) {
+        if (!globalUserId) {
+          alert("You need to be logged in to create posts!");
+          return 0;
+        }
       // Prevent the form from submitting and refreshing the page
       event.preventDefault();
 
@@ -119,6 +124,10 @@ function submitForm() {
 }
 
 function getUserName(userId) {
+  if (!userId) {
+    console.error("Invalid userId");
+    return Promise.resolve(null); // Return null or an appropriate default value
+  }
   const db = firebase.firestore(); // Ensure Firestore is initialized
   const userRef = db.collection("users").doc(userId);
 
@@ -169,16 +178,14 @@ function createPostCard(post) {
 
   // Add the original price
   const originalPrice = document.createElement("p");
-  originalPrice.innerHTML = `<span class="font-bold">Original price:</span> $${
-    post.price
-  } /lb`;
+  originalPrice.innerHTML = `<span class="font-bold">Original price:</span> $${post.price} /lb`;
   postInfoDiv.appendChild(originalPrice);
 
   // Add the bulk price
   const bulkPrice = document.createElement("p");
-  bulkPrice.innerHTML = `<span class="font-bold">Bulk price:</span> $${
-   Math.round(post.price * 0.6)
-  } /lb`; // Example discount
+  bulkPrice.innerHTML = `<span class="font-bold">Bulk price:</span> $${Math.round(
+    post.price * 0.6
+  )} /lb`; // Example discount
   postInfoDiv.appendChild(bulkPrice);
 
   // Add the category
@@ -200,7 +207,9 @@ function createPostCard(post) {
 
   // Add the posted by
   const postedBy = document.createElement("p");
-  postedBy.innerHTML = `<span class="font-bold">Posted by:</span> ${getUserName(post.owner)}`;
+  postedBy.innerHTML = `<span class="font-bold">Posted by:</span> ${getUserName(
+    post.owner
+  )}`;
   postInfoDiv.appendChild(postedBy);
 
   // Add the card actions section
