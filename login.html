@@ -24,7 +24,7 @@
   </head>
 
   <body class="bg-lime-50">
-    <div class="body-content relative max-w-screen-xl mx-auto ">
+    <div class="body-content relative max-w-screen-xl mx-auto">
       <header>
         <header class="bg-green-900 max-h-16 rounded-b-lg mb-6">
           <div class="logo-profile h-16 flex justify-between px-3">
@@ -45,15 +45,53 @@
         </header>
       </header>
 
-      <main
-        class="flex w-full items-center justify-center -mt-6 h-screen bg-cover bg-center bg-[url('images/loginbg.png')]"
+      <div
+        class="home h-screen lg:justify-center flex flex-col lg:flex-row landing mx-auto md:w-full w-screen px-3 items-center"
       >
-        <div class="mb-32" id="firebaseui-auth-container"></div>
-        <div id="loader">Loading...</div>
-      </main>
+        <div class="landing-content flex flex-col  gap-10 px-2 lg:px-20 lg:-mt-20 py-10 lg:w-1/2 w-full">
+          <div class="logo-moto flex flex-col items-center">
+            <div
+              class="logo w-32 h-32 border-5 border-lime-50 rounded-full bg-center bg-cover bg-full"
+              style="
+                background-image: url(/images/community-cart--high-resolution-logo.png);
+              "
+            ></div>
+            <h2 class="font-bold text-center my-1 text-2xl">
+              <em>Shop together, save together!</em>
+            </h2>
+          </div>
+          <div
+            class="welcome-banner w-full  px-4 lg:py-5 my-5 text-center  hidden lg:block"
+          >
+            <div class="welcome w-full  hidden lg:block">
+              <h1 class="display-5 fw-bold font-serif text-5xl font-bold mb-2">
+                Welcome to CommunityCart
+              </h1>
+              <div class="col-lg-6 mx-auto font-serif">
+                <p class="lead mb-4 md:text-start md:text-xl">
+                  We are excited to welcome you to our community-based app with
+                  the goal to connect you with other people from your community
+                  to do bulk shopping in order to save money in groceries.
+                </p>
+
+                <p class="lead mb-4 md:text-start">
+                  Join Now! Connect with New People! Save on Grocery Prices!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class=" flex self-center w-full justify-center items-center lg:pr-20 "
+        >
+          <div class="mb-32" id="firebaseui-auth-container"></div>
+          <div id="loader">Loading...</div>
+        </div>
+      </div>
 
       <footer
-        class="w-full bg-green-900 text-white pt-6 absolute bottom-0 mt-auto"
+        class="w-full bg-green-900 text-white py-3  mt-auto"
       >
         <div class="container mx-auto flex flex-col items-center">
           <div class="text-center mb-4">
