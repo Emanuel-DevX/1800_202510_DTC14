@@ -217,6 +217,8 @@
 
               // Prepare user data object
               const userData = {
+                name: document.getElementById("name").value, // Add this line
+
                 phone: document.getElementById("phone").value,
                 age: document.getElementById("age").value,
                 bio: document.getElementById("bio").value,
