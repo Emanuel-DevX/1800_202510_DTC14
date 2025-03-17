@@ -15,20 +15,18 @@ function insertNameFromFirestore() {
 }
 
 function home() {
-  // Load the navigation first
+  sideNav = document.querySelector(".side-nav");
+  sideNavButtons = document.querySelector(".nav-buttons");
 
-  // const postTemplate = document.querySelector(".post-1");
-  // if (!postTemplate) {
-  //   console.error("Template post (.post-1) not found!");
-  //   return;
-  // }
+  // Add a mouseenter event listener to trigger on hover
+  sideNavButtons.addEventListener("mouseenter", () => {
+    sideNav.classList.add("w-48");
+  });
 
-  // for (let i = 0; i < 5; i++) {
-  //   let clonedPost = postTemplate.cloneNode(true);
-  //   document.querySelector(".posts").appendChild(clonedPost);
-  // }
+  sideNavButtons.addEventListener("mouseleave", () => {
+    sideNav.classList.remove("w-48");
+  });
 }
-
 
 function setup() {
   insertNameFromFirestore();
