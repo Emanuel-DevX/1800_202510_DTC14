@@ -22,15 +22,15 @@
     <script src="scripts/post.js" defer></script>
   </head>
 
-  <body class="w-screen h-screen overflow-x-hidden">
-    <div class="layout md:max-w-screen-2xl w-full max-w-full mx-auto">
+  <body class="w-screen h-full m-0 p-0 overflow-y-scroll overflow-x-hidden">
+    <div class="layout md:max-w-screen-2xl w-full max-w-full pb-32 mx-auto">
       <header
-        class="max-w-full md:sticky md:top-0 z-50 bg-green-900 max-h-16 rounded-b-lg mb-6"
+        class="max-w-full md:sticky md:top-0 md:z-40 bg-[#323232] max-h-16 rounded-b-lg mb-6"
       >
         <div class="logo-profile h-16 flex justify-between px-3">
           <div class="logo-menu flex">
             <div
-              class="logo w-22 h-22 border-5 border-lime-50 rounded-full bg-center bg-cover bg-full"
+              class="logo w-20 mt-1 h-20 border-5 border-white rounded-full  bg-center bg-cover bg-full"
               style="
                 background-image: url(/images/community-cart--high-resolution-logo.png);
               "
@@ -46,13 +46,50 @@
             <h1 class="user-name font-bold text-lime-50 mx-2">
               <span id="name-goes-here"></span>
             </h1>
-            <img class="w-12 rounded-full" src="images/profile.jpg" alt="" />
+            <img
+              id="profile-icon"
+              class="w-12 cursor-pointer rounded-full"
+              src="images/profile.jpg"
+              alt=""
+            />
+            <div
+              id="profile-menu"
+              class="hidden z-50 absolute top-16 right-2 bg-[#323232] text-lime-50 p-3 rounded-lg shadow-md w-48"
+            >
+              <ul class="menu-options space-y-2">
+                <li>
+                  <a
+                    href="/profile.html"
+                    class="block px-4 py-2 hover:bg-green-700"
+                    >Profile Settings</a
+                  >
+                </li>
+                <li>
+                  <a href="/contact" class="block px-4 py-2 hover:bg-green-700"
+                    >Contact Us</a
+                  >
+                </li>
+                <li>
+                  <a href="/privacy" class="block px-4 py-2 hover:bg-green-700"
+                    >Privacy policy</a
+                  >
+                </li>
+                <li>
+                  <a
+                    id="logout-btn"
+                    href="/index.html"
+                    class="block px-4 py-2 hover:bg-green-700"
+                    >Logout</a
+                  >
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </header>
       <main class="flex w-full justify-between px-3">
         <nav
-          class="side-nav hidden w-14 h-screen sticky top-0 md:flex flex-col justify-center ml-2"
+          class="side-nav hidden w-14 h-[80vh] sticky top-0 md:flex flex-col justify-center ml-2"
         >
           <div
             class="nav-buttons hover:w-48 group border-[4px] border-green-700 rounded-full hover:rounded-2xl"
@@ -361,7 +398,7 @@
           <div class="my-feeds mt-4">
             <h2 class="font-bold text-xl mb-2">My Feeds</h2>
             <div
-              class="posts cards md:mx-3 flex flex-wrap px-2 justify-center"
+              class="posts cards md:mx-3 flex flex-col md:flex-row items-center flex-wrap px-2 justify-center"
             ></div>
           </div>
         </div>
@@ -370,13 +407,13 @@
         </aside>
       </main>
       <nav
-        class="md:hidden min-h-16 fixed bottom-0 w-full flex justify-evenly py-2 bg-[#323232] z-50"
+        class="md:hidden min-h-16 sticky left-0 bottom-0 w-full flex justify-evenly py-2 bg-[#323232] z-50"
       >
         <!-- Home Button -->
         <a href="home.html" class="w-1/4">
-          <div class="flex flex-col items-center justify-center ">
+          <div class="flex flex-col items-center justify-center">
             <svg
-              class="text-white font-extrabold min-w-9 w-9 "
+              class="text-white font-extrabold min-w-9 w-9"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -439,9 +476,9 @@
 
         <!-- Notifications Button -->
         <a href="notification.html" class="w-1/4">
-          <div class="flex flex-col items-center justify-center ">
+          <div class="flex flex-col items-center justify-center">
             <svg
-              class="text-white font-extrabold min-w-9 w-9 "
+              class="text-white font-extrabold min-w-9 w-9"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -454,9 +491,7 @@
                 d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
               />
             </svg>
-            <div class="text-sm  text-white">
-              Notifications
-            </div>
+            <div class="text-sm text-white">Notifications</div>
           </div>
         </a>
       </nav>

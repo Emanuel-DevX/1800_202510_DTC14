@@ -14,7 +14,42 @@ function insertNameFromFirestore() {
   });
 }
 
-function home() {
+function profileSetting() {
+  const profileIcon = document.getElementById("profile-icon");
+  const profileMenu = document.getElementById("profile-menu");
+
+  // Toggle menu visibility
+  profileIcon.addEventListener("click", function () {
+    profileMenu.classList.toggle("hidden");
+  });
+
+  // Close the menu if clicked outside
+  window.addEventListener("click", function (event) {
+    if (
+      !profileIcon.contains(event.target) &&
+      !profileMenu.contains(event.target)
+    ) {
+      profileMenu.classList.add("hidden");
+    }
+  });
+}
+function logout() {
+  const logoutBtn = document.getElementById("logout-btn");
+  logoutBtn.addEventListener("click", function () {
+    auth
+      .signOut()
+      .then(() => {
+      
+                console.log("User logged out successfully");
+
+      })
+      .catch((error) => {
+        console.error("Error logging out: ", error);
+      });
+  });
+}
+
+function sideNavbar() {
   sideNav = document.querySelector(".side-nav");
   sideNavButtons = document.querySelector(".nav-buttons");
 
@@ -26,6 +61,12 @@ function home() {
   sideNavButtons.addEventListener("mouseleave", () => {
     sideNav.classList.remove("w-48");
   });
+}
+
+function home() {
+  profileSetting();
+  sideNavbar();
+  logout();
 }
 
 function setup() {

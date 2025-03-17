@@ -11,6 +11,27 @@ function initializeUserId() {
   });
 }
 
+let globalUserName = null;
+
+function getUserName(u_id) {
+  return new Promise((resolve, reject) => {
+    const userDocRef = db.collection("users").doc(u_id); // Reference the user document
+    userDocRef
+      .get()
+      .then((userDoc) => {
+        if (userDoc.exists) {
+          const userName = userDoc.data().name; // Get the username from the document
+          resolve(userName); // Resolve the promise with the username
+        } else {
+          reject("User document does not exist."); // Reject if the document doesn't exist
+        }
+      })
+      .catch((error) => {
+        reject("Error getting user document: " + error); // Reject if there's an error
+      });
+  });
+}
+
 function getPostImage(category) {
   category = category.toLowerCase();
   const defaultPostImg =
@@ -108,15 +129,14 @@ async function addPost(postData) {
 }
 
 function submitForm() {
-
   // Attach the event listener to the form
   document
     .getElementById("postForm")
     .addEventListener("submit", function (event) {
-        if (!globalUserId) {
-          alert("You need to be logged in to create posts!");
-          return 0;
-        }
+      if (!globalUserId) {
+        alert("You need to be logged in to create posts!");
+        return 0;
+      }
       // Prevent the form from submitting and refreshing the page
       event.preventDefault();
 
@@ -149,29 +169,6 @@ function submitForm() {
       document.getElementById("postForm").reset();
 
       hideForm();
-    });
-}
-
-function getUserName(userId) {
-  if (!userId) {
-    console.error("Invalid userId");
-    return Promise.resolve(null); // Return null or an appropriate default value
-  }
-  const db = firebase.firestore(); // Ensure Firestore is initialized
-  const userRef = db.collection("users").doc(userId);
-
-  return userRef
-    .get()
-    .then((userDoc) => {
-      if (userDoc.exists) {
-        return userDoc.data().name; // Correctly return the name
-      } else {
-        throw new Error("User not found");
-      }
-    })
-    .catch((error) => {
-      console.error("Error fetching user:", error);
-      return null;
     });
 }
 
@@ -236,9 +233,16 @@ function createPostCard(post) {
 
   // Add the posted by
   const postedBy = document.createElement("p");
-  postedBy.innerHTML = `<span class="font-bold">Posted by:</span> ${getUserName(
-    post.owner
-  )}`;
+  if (post.owner) {
+    getUserName(post.owner)
+      .then((userName) => {
+        postedBy.innerHTML = `<span class="font-bold">Posted by: ${userName}</span> `;
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+
   postInfoDiv.appendChild(postedBy);
 
   // Add the card actions section
