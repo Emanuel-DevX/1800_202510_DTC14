@@ -121,8 +121,24 @@ async function addPost(postData) {
       quantity: postData.quantity,
       members: postData.members,
     });
+    addPostToUsers(docRef.id);
 
     console.log("Document added with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
+async function addPostToUsers(groupId) {
+  try {
+    // Reference to the "Posts" collection
+    const userRef = db.collection("users");
+
+    // Add a new document with a generated ID
+    const docRef = await userRef.add({
+      groups: [groupId],
+    });
+
+    console.log("Document added with ID: ", userRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
   }
