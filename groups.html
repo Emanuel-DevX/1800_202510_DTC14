@@ -19,6 +19,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     <script src="scripts/firebaseAPI_DTC14.js"></script>
     <script src="scripts/home.js" defer></script>
+    <script src="scripts/group.js" defer></script>
   </head>
 
   <body class="w-screen h-screen">
@@ -175,7 +176,7 @@
         <div>
           <h2 class="font-bold text-xl mb-2">My Groups</h2>
 
-          <article class="min-w-80 hidden lg:block">
+          <article id="group_article" class="min-w-80 hidden lg:block">
             <!-- Group 1 -->
             <div>
               <div
@@ -211,7 +212,7 @@
               </div>
             </div>
 
-            <!-- Group 1 -->
+            <!-- Group 2 -->
             <div>
               <div
                 class="min-w-72 inline-flex gap-6 shadow-lg bg-green-800 text-lime-50 rounded-2xl mx-2 mb-3 p-4"
