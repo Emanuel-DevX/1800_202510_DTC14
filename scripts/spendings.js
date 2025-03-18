@@ -35,29 +35,68 @@ function createGroupCard(groups) {
 // x = document.getElementById("group_article")
 // x.appendChild(createGroupCard(groups))
 
-function fetchAndRenderGroups() {
-    const cardsSection = document.querySelector("#group_article");
+// Assuming you've already initialized Firebase
 
-    // Listen for real-time updates
-    db.collection("Posts")
-        .orderBy("created_at") // Order by creation date (newest first)
-        .onSnapshot(
-            (snapshot) => {
-                // Clear the existing cards (optional, depending on your use case)
-                cardsSection.innerHTML = "";
+// Initialize Firebase once at the top of your file
 
-                // Loop through the documents and render cards
-                snapshot.forEach((doc) => {
-                    const groups = doc.data();
-                    const card = createGroupCard(groups);
-                    cardsSection.prepend(card); // Prepend the new card
-                });
-            },
-            (error) => {
-                console.error("Error fetching posts: ", error);
-            }
-        );
+// Function to get current user's ID safely
+function getCurrentUserId() {
+    return new Promise((resolve, reject) => {
+        firebase.auth().onAuthStateChanged(user => {
+            resolve(user?.uid);
+        }, error => {
+            reject(error);
+        });
+    });
 }
+
+async function fetchAndRenderGroups() {
+    try {
+        // Wait for user ID
+        const userId = await getCurrentUserId();
+        if (!userId) {
+            console.error("User is not logged in");
+            return;
+        }
+
+        const cardsSection = document.querySelector("#group_article");
+
+        // First, get the current user's groups array
+        const userRef = db.collection("users").doc(userId);
+        const userDoc = await userRef.get();
+        const userGroups = userDoc.data()?.groups || [];
+
+        // Listen for real-time updates
+        db.collection("Posts")
+            .orderBy("created_at")
+            .onSnapshot(
+                async (snapshot) => {
+                    cardsSection.innerHTML = "";
+
+                    // For each post, check if its ID exists in user's groups
+                    snapshot.forEach(doc => {
+                        if (userGroups.includes(doc.id)) {
+                            const groups = doc.data();
+                            const card = createGroupCard(groups);
+                            cardsSection.prepend(card);
+                        }
+                    });
+                },
+                error => {
+                    console.error("Error fetching posts: ", error);
+                }
+            );
+    } catch (error) {
+        console.error("Error in fetchAndRenderGroups:", error);
+    }
+}
+
+// Call the function after auth state is ready
+getCurrentUserId().then(() => {
+    setup(); // Your existing setup function
+}).catch(error => {
+    console.error("Authentication error:", error);
+});
 
 function setup() {
     fetchAndRenderGroups();
