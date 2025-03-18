@@ -22,34 +22,43 @@
     <script src="scripts/group.js" defer></script>
   </head>
 
-  <body class="w-screen h-screen">
-    <div class="layout max-w-screen-2xl w-full mx-auto">
-      <header class="w-full bg-[#323232]  max-h-16 rounded-b-lg mb-6">
-        <div class="logo-profile h-16 flex justify-between px-3">
-          <div class="logo-menu flex">
-            <div
-              class="logo w-20 h-20 border-5 border-lime-50 rounded-full bg-center bg-cover bg-full"
-              style="
-                background-image: url(/images/community-cart--high-resolution-logo.png);
-              "
-            ></div>
-            <div
-              class="self-center mx-4 font-bold text-lime-50 hidden md:block"
-            >
-              <h1>
-                <span class="font-extrabold">CommunityCart</span> / Groups
-              </h1>
-            </div>
-          </div>
-
-          <div class="profile flex items-center">
-            <h1 class="user-name font-bold text-lime-50 mx-2">
-              <span id="name-goes-here"></span>
-            </h1>
-            <img class="w-12 rounded-full" src="images/profile.jpg" alt="" />
+  <div class="layout md:max-w-screen-2xl w-full max-w-full pb-32 mx-auto">
+    <header class="max-w-full md:sticky md:top-0 md:z-40 bg-[#323232] max-h-16 rounded-b-lg mb-6">
+      <div class="logo-profile h-16 flex justify-between px-3">
+        <div class="logo-menu flex">
+          <div class="logo w-20 mt-1 h-20 border-5 border-white rounded-full  bg-center bg-cover bg-full" style="
+                  background-image: url(/images/community-cart--high-resolution-logo.png);
+                "></div>
+          <div class="self-center mx-4 font-bold text-lime-50 hidden md:block">
+            <h1><span class="font-extrabold">CommunityCart</span> / Home</h1>
           </div>
         </div>
-      </header>
+  
+        <div class="profile flex items-center">
+          <h1 class="user-name font-bold text-lime-50 mx-2">
+            <span id="name-goes-here"></span>
+          </h1>
+          <img id="profile-icon" class="w-12 cursor-pointer rounded-full" src="images/profile.jpg" alt="" />
+          <div id="profile-menu"
+            class="hidden z-50 absolute top-16 right-2 bg-[#323232] text-lime-50 p-3 rounded-lg shadow-md w-48">
+            <ul class="menu-options space-y-2">
+              <li>
+                <a href="/profile.html" class="block px-4 py-2 hover:bg-green-700">Profile Settings</a>
+              </li>
+              <li>
+                <a href="/contact" class="block px-4 py-2 hover:bg-green-700">Contact Us</a>
+              </li>
+              <li>
+                <a href="/privacy" class="block px-4 py-2 hover:bg-green-700">Privacy policy</a>
+              </li>
+              <li>
+                <a id="logout-btn" href="/index.html" class="block px-4 py-2 hover:bg-green-700">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
       <main class="flex max-w-[92vw] md:full justify-between">
         <nav
           class="hidden group hover:w-48 w-14 h-screen md:flex flex-col justify-center ml-2"
@@ -174,83 +183,15 @@
           </div>
         </nav>
         <div>
-          <h2 class="font-bold text-xl mb-2">My Groups</h2>
+          <h2 class="font-bold text-xl mb-2 pl-14 md:pl-0">My Groups</h2>
 
-          <article id="group_article" class="min-w-80 hidden lg:block">
-            <!-- Group 1 -->
-            <div>
-              <div
-                class="min-w-72 inline-flex gap-6 shadow-lg bg-green-800 text-lime-50 rounded-2xl mx-2 mb-3 p-4"
-              >
-                <div>
-                  <img
-                    class="w-12 rounded-full"
-                    src="images/group_profile.gif"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <h3 class="font-bold text-lg">Group 123</h3>
-                  <p>Group description</p>
-                  <div class="flex justify-end mt-2"></div>
-                </div>
-                <div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    width="40"
-                    height="60"
-                    stroke-width="2"
-                  >
-                    <path d="M11 4l3 8l-3 8"></path>
-                  </svg>
-                </div>
-              </div>
-            </div>
-
-            <!-- Group 2 -->
-            <div>
-              <div
-                class="min-w-72 inline-flex gap-6 shadow-lg bg-green-800 text-lime-50 rounded-2xl mx-2 mb-3 p-4"
-              >
-                <div>
-                  <img
-                    class="w-12 rounded-full"
-                    src="images/group_profile.gif"
-                    alt=""
-                  />
-                </div>
-                <div>
-                  <h3 class="font-bold text-lg">Group 456</h3>
-                  <p>Group description</p>
-                  <div class="flex justify-end mt-2"></div>
-                </div>
-                <div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    width="40"
-                    height="60"
-                    stroke-width="2"
-                  >
-                    <path d="M11 4l3 8l-3 8"></path>
-                  </svg>
-                </div>
-              </div>
-            </div>
+          <article id="group_article" class=" max-w-80 mx-16 md:mx-0 items-center">
+           
           </article>
 
         </div>
 
-        <div class="main-content shadow w-full mx-3 flex flex-col">
+        <div class=" shadow w-full mx-3 md:visible invisible flex flex-col">
           <div class="h-5/6 min-w-60 shadow-lg bg-[#323232] text-lime-50 rounded-2xl mb-3 p-4">
             <div class="place-items-left flex gap-4">
               <img class="w-24 rounded-full mb-2" src="images/group_profile.gif" alt="" />

@@ -59,7 +59,7 @@ function fetchAndRenderGroups() {
         );
 }
 
-function setup(){
+function setup() {
     fetchAndRenderGroups();
 }
 document.addEventListener("DOMContentLoaded", setup);
