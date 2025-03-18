@@ -130,17 +130,17 @@ async function addPost(postData) {
 }
 async function addPostToUsers(groupId) {
   try {
-    // Reference to the "Posts" collection
-    const userRef = db.collection("users");
+    // Reference to the specific user document
+    const userRef = db.collection("users").doc(globalUserId);
 
-    // Add a new document with a generated ID
-    const docRef = await userRef.add({
-      groups: [groupId],
+    // Update the document with arrayUnion to add to the array
+    await userRef.update({
+      groups: firebase.firestore.FieldValue.arrayUnion(groupId),
     });
 
-    console.log("Document added with ID: ", userRef.id);
+    console.log("Successfully added group to user:", globalUserId);
   } catch (e) {
-    console.error("Error adding document: ", e);
+    console.error("Error updating document: ", e);
   }
 }
 
@@ -188,11 +188,13 @@ function submitForm() {
     });
 }
 
-function createPostCard(post) {
+function createPostCard(post, docId) {
   // Create the card container
   const card = document.createElement("div");
   card.className =
     "relative post-1 max-w-[320px] md:w-80 lg:w-[31%] shadow-lg bg-[#434343] text-lime-50 rounded-2xl md:mx-2 mb-6";
+
+  // When setting the data attribute, use the docId parameter:
 
   // Add the image section
   const imageDiv = document.createElement("div");
@@ -267,9 +269,28 @@ function createPostCard(post) {
 
   // Add the join button
   const joinButton = document.createElement("button");
+    joinButton.dataset.groupId = docId;
+
+  joinButton.id = "join-group";
   joinButton.className =
     "border-2 px-2 pb-1 rounded-b-xl ml-auto absolute top-0 right-2 bg-[#434343] self-right mb-2 mt-auto border-lime-50 border-3 shadow-lg border-t-0 hover:bg-white hover:border-[#434343] hover:border-3 hover:border-t-0 hover:text-green-900 font-bold";
   joinButton.textContent = "Join +";
+
+
+  // Add click event listener directly to this button
+   joinButton.addEventListener("click", function () {
+     addPostToUsers(this.dataset.groupId);
+   });
+
+
+  // Add data attribute to store the group ID
+  joinButton.dataset.groupId = docId;
+
+  // Add click event listener directly to this button
+  joinButton.addEventListener("click", function () {
+    addPostToUsers(this.dataset.groupId);
+  });
+
   cardActionsDiv.appendChild(joinButton);
 
   // Append the card actions to the post info
@@ -287,17 +308,15 @@ function fetchAndRenderPosts() {
 
   // Listen for real-time updates
   db.collection("Posts")
-    .orderBy("created_at") // Order by creation date (newest first)
+    .orderBy("created_at")
     .onSnapshot(
       (snapshot) => {
-        // Clear the existing cards (optional, depending on your use case)
         cardsSection.innerHTML = "";
 
-        // Loop through the documents and render cards
         snapshot.forEach((doc) => {
           const post = doc.data();
-          const card = createPostCard(post);
-          cardsSection.prepend(card); // Prepend the new card
+          const card = createPostCard(post, doc.id); // Pass doc.id as the postId parameter
+          cardsSection.prepend(card);
         });
       },
       (error) => {
