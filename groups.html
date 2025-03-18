@@ -36,7 +36,7 @@
           <h1 class="user-name font-bold text-lime-50 mx-2">
             <span id="name-goes-here"></span>
           </h1>
-          <img id="profile-icon" class="w-12 cursor-pointer rounded-full" src="images/profile.jpg" alt="" />
+          <img id="profile-icon" class="w-12 mr-0 md:mr-6 cursor-pointer rounded-full" src="images/profile.jpg" alt="" />
           <div id="profile-menu"
             class="hidden z-50 absolute top-16 right-2 bg-[#323232] text-lime-50 p-3 rounded-lg shadow-md w-48">
             <ul class="menu-options space-y-2">
@@ -44,10 +44,10 @@
                 <a href="/profile.html" class="block px-4 py-2 hover:bg-green-700">Profile Settings</a>
               </li>
               <li>
-                <a href="/contact" class="block px-4 py-2 hover:bg-green-700">Contact Us</a>
+                <a href="/contact.html" class="block px-4 py-2 hover:bg-green-700">Contact Us</a>
               </li>
               <li>
-                <a href="/privacy" class="block px-4 py-2 hover:bg-green-700">Privacy policy</a>
+                <a href="/privacy.html" class="block px-4 py-2 hover:bg-green-700">Privacy policy</a>
               </li>
               <li>
                 <a id="logout-btn" href="/index.html" class="block px-4 py-2 hover:bg-green-700">Logout</a>
@@ -123,8 +123,7 @@
       <div>
         <h2 class="font-bold text-xl mb-2 pl-14 md:pl-0">My Groups</h2>
 
-        <article id="group_article" class=" max-w-80 px-16 md:px-0 items-center">
-
+        <article id="group_article" class=" max-w-80 mx-12 md:mx-0 items-center">
         </article>
 
       </div>
@@ -170,6 +169,7 @@
       </div>
 
     </main>
+    <footer>
     <nav class="md:hidden min-h-16 fixed bottom-0 w-full flex justify-evenly py-2 bg-[#323232] z-50">
       <!-- Home Button -->
       <a href="home.html" class="w-1/4">
@@ -206,7 +206,7 @@
             <path stroke-linecap="round" stroke-linejoin="round"
               d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
           </svg>
-          <span class="text-sm font-extrabold text-yellow-300">Groups</span>
+          <span class="text-sm  text-yellow-300">Groups</span>
         </div>
       </a>
 
@@ -222,7 +222,7 @@
         </div>
       </a>
     </nav>
-    <footer></footer>
+    </footer>
   </div>
 </body>
 
