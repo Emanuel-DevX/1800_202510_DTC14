@@ -3,7 +3,7 @@ function createGroupCard(groups, docid) {
     const card = document.createElement("div");
     card.id = docid
     card.className =
-        "min-w-72 inline-flex gap-6 shadow-lg bg-green-800 text-lime-50 rounded-2xl mx-2 mb-3 p-4";
+        "w-full inline-flex gap-6 shadow-lg bg-green-800 text-lime-50 rounded-2xl mx-2 mb-3 p-4";
 
     // Add the image section
     const imageDiv = document.createElement("div");

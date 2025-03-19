@@ -3,7 +3,7 @@ function createGroupCard(groups, docid) {
     const card = document.createElement("div");
     card.id = docid
     card.className = 
-        "min-w-72 inline-flex gap-6 shadow-lg bg-green-800 text-lime-50 rounded-2xl mx-2 mb-3 p-4";
+        "w-full inline-flex gap-6 shadow-lg bg-green-800 text-lime-50 rounded-2xl mx-2 mb-3 p-4";
 
     // Add the image section
     const imageDiv = document.createElement("div");
@@ -66,7 +66,6 @@ function getCurrentUserId() {
 
 async function fetchAndRenderGroups() {
     try {
-        // Wait for user ID
         const userId = await getCurrentUserId();
         if (!userId) {
             console.error("User is not logged in");
@@ -74,20 +73,16 @@ async function fetchAndRenderGroups() {
         }
 
         const cardsSection = document.querySelector("#group_article");
-
-        // First, get the current user's groups array
         const userRef = db.collection("users").doc(userId);
         const userDoc = await userRef.get();
         const userGroups = userDoc.data()?.groups || [];
 
-        // Listen for real-time updates
         db.collection("Posts")
             .orderBy("created_at")
             .onSnapshot(
                 async (snapshot) => {
                     cardsSection.innerHTML = "";
 
-                    // For each post, check if its ID exists in user's groups
                     snapshot.forEach(doc => {
                         if (userGroups.includes(doc.id)) {
                             const groups = doc.data();
@@ -108,9 +103,9 @@ async function fetchAndRenderGroups() {
     }
 }
 
-// Call the function after auth state is ready
+
 getCurrentUserId().then(() => {
-    setup(); // Your existing setup function
+    setup(); 
 }).catch(error => {
     console.error("Authentication error:", error);
 });
