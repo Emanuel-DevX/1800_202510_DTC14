@@ -278,18 +278,18 @@ function createPostCard(post, docId) {
   joinButton.textContent = "Join +";
 
   // Add click event listener directly to this button
-  // joinButton.addEventListener("click", function () {
-  //   addPostToUsers(this.dataset.groupId);
-  //   joinButton.innerHTML = "Joined";
-  // });
+  joinButton.addEventListener("click", function () {
+    addPostToUsers(this.dataset.groupId);
+    joinButton.innerHTML = "Joined";
+  });
 
-  // // Add data attribute to store the group ID
-  // joinButton.dataset.groupId = docId;
+  // Add data attribute to store the group ID
+  joinButton.dataset.groupId = docId;
 
-  // // Add click event listener directly to this button
-  // joinButton.addEventListener("click", function () {
-  //   addPostToUsers(this.dataset.groupId);
-  // });
+  // Add click event listener directly to this button
+  joinButton.addEventListener("click", function () {
+    addPostToUsers(this.dataset.groupId);
+  });
 
   cardActionsDiv.appendChild(joinButton);
 
