@@ -222,14 +222,14 @@ function createPostCard(post, docId) {
 
   // Add the original price
   const originalPrice = document.createElement("p");
-  originalPrice.innerHTML = `<span class="font-bold">Original price:</span> $${post.price} /lb`;
+  originalPrice.innerHTML = `<span class="font-bold">Original price:</span> $${post.price}`;
   postInfoDiv.appendChild(originalPrice);
 
   // Add the bulk price
   const bulkPrice = document.createElement("p");
   bulkPrice.innerHTML = `<span class="font-bold">Bulk price:</span> $${Math.round(
     post.price * 0.6
-  )} /lb`; // Example discount
+  )}`; // Example discount
   postInfoDiv.appendChild(bulkPrice);
 
   // Add the category
