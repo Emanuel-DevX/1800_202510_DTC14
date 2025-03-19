@@ -15,23 +15,44 @@
     <script src="scripts/firebaseAPI_DTC14.js"></script>
     <script src="scripts/home.js"></script>
 </head>
-<body class="w-screen h-screen">
-    <div class="layout max-w-screen-2xl w-full mx-auto">
-        <header class="w-full bg-[#323232] max-h-16 rounded-b-lg mb-6">
+<body class="w-screen h-full m-0 p-0 overflow-y-scroll overflow-x-hidden">
+    <div class="layout md:max-w-screen-2xl w-full max-w-full pb-32 mx-auto">
+        <header class="max-w-full md:sticky md:top-0 md:z-40 bg-[#323232] max-h-16 rounded-b-lg mb-6">
             <div class="logo-profile h-16 flex justify-between px-3">
                 <div class="logo-menu flex">
-                    <div class="logo w-20 h-20 border-5 border-lime-50 rounded-full bg-center bg-cover bg-full" style="
-                background-image: url(/images/community-cart--high-resolution-logo.png);
-              "></div>
+                    <div class="logo w-20 mt-1 h-20 border-5 border-white rounded-full  bg-center bg-cover bg-full"
+                        style="
+                  background-image: url(/images/community-cart--high-resolution-logo.png);
+                "></div>
                     <div class="self-center mx-4 font-bold text-lime-50 hidden md:block">
                         <h1><span class="font-extrabold">CommunityCart</span> / Notification</h1>
                     </div>
                 </div>
 
                 <div class="profile flex items-center">
-                    <h1 class="user-name font-bold text-lime-50 mx-2"><span id="name-goes-here"></span>
+                    <h1 class="user-name font-bold text-lime-50 mx-2">
+                        <span id="name-goes-here"></span>
                     </h1>
-                    <img class="w-12 rounded-full mr-0 md:mr-6" src="images/profile.jpg" alt="" />
+                    <img id="profile-icon" class="w-12 mr-0 md:mr-6 cursor-pointer rounded-full"
+                        src="images/profile.jpg" alt="" />
+                    <div id="profile-menu"
+                        class="hidden z-50 absolute top-16 right-2 bg-[#323232] text-lime-50 p-3 rounded-lg shadow-md w-48">
+                        <ul class="menu-options space-y-2">
+                            <li>
+                                <a href="/profile.html" class="block px-4 py-2 hover:bg-green-700">Profile Settings</a>
+                            </li>
+                            <li>
+                                <a href="/contact.html" class="block px-4 py-2 hover:bg-green-700">Contact Us</a>
+                            </li>
+                            <li>
+                                <a href="/privacy.html" class="block px-4 py-2 hover:bg-green-700">Privacy policy</a>
+                            </li>
+                            <li>
+                                <a id="logout-btn" href="/index.html"
+                                    class="block px-4 py-2 hover:bg-green-700">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </header>

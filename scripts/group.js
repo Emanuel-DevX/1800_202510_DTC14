@@ -1,35 +1,49 @@
-function createGroupCard(groups) {
-  // Create the card container
-  const card = document.createElement("div");
-  card.className =
-    "min-w-72 inline-flex gap-6 shadow-lg bg-green-800 text-lime-50 rounded-2xl mx-2 mb-3 p-4";
+function createGroupCard(groups, docid) {
+    // Create the card container
+    const card = document.createElement("div");
+    card.id = docid
+    card.className = 
+        "min-w-72 inline-flex gap-6 shadow-lg bg-green-800 text-lime-50 rounded-2xl mx-2 mb-3 p-4";
 
-  // Add the image section
-  const imageDiv = document.createElement("div");
-  imageDiv.className = "";
-  const image = document.createElement("img");
-  image.className = "w-16 h-16 rounded-full";
-  image.src = groups.image || "images/apples.jpg"; // Use post image or a default image
-  image.alt = groups.title;
-  imageDiv.appendChild(image);
+    // Add the image section
+    const imageDiv = document.createElement("div");
+    imageDiv.className = "";
+    const image = document.createElement("img");
+    image.className = "min-w-16 h-16 rounded-full";
+    image.src = groups.image || "images/apples.jpg"; // Use post image or a default image
+    image.alt = groups.title;
+    imageDiv.appendChild(image);
 
-  // Add the title
-  const groupInfoDiv = document.createElement("div");
-  const title = document.createElement("h3");
-  title.className = "font-bold text-lg";
-  title.textContent = groups.title;
-  groupInfoDiv.appendChild(title);
+    // Add the title
+    const place = document.createElement("div");
+    place.className = "flex justify-between w-full "
+    const groupInfoDiv = document.createElement("div");
+    const title = document.createElement("h3");
+    title.className = "font-bold text-lg";
+    title.textContent = groups.title;
+    groupInfoDiv.appendChild(title);
+    
 
-  // Add the description
-  const description = document.createElement("p");
-  description.textContent = groups.description;
-  groupInfoDiv.appendChild(description);
+    // Add the description
+    const description = document.createElement("p");
+    description.textContent = groups.description;
+    groupInfoDiv.appendChild(description);
+    
 
-  // Append the image and post info to the card
-  card.appendChild(imageDiv);
-  card.appendChild(groupInfoDiv);
+    const arrow = document.createElement("p")
+    arrow.className = "pt-5 material-icons arrow_forward_ios ";
+    arrow.innerHTML = `<span class="material-icons-outlined">
+        arrow_forward_ios
+    </span>`
+    
+    // Append the image and post info to the card
+    place.appendChild(groupInfoDiv);
+    place.appendChild(arrow);
+    card.appendChild(imageDiv);
+    card.appendChild(place);
 
-  return card;
+
+    return card;
 }
 
 // x = document.getElementById("group_article")
@@ -60,7 +74,7 @@ async function fetchAndRenderGroups() {
         }
 
         const cardsSection = document.querySelector("#group_article");
-        
+
         // First, get the current user's groups array
         const userRef = db.collection("users").doc(userId);
         const userDoc = await userRef.get();
@@ -77,8 +91,11 @@ async function fetchAndRenderGroups() {
                     snapshot.forEach(doc => {
                         if (userGroups.includes(doc.id)) {
                             const groups = doc.data();
-                            const card = createGroupCard(groups);
+                            const card = createGroupCard(groups, doc.id);
                             cardsSection.prepend(card);
+                            document.getElementById(doc.id).addEventListener("click", () => {
+                                document.location.href = "groupinfo.html"
+                            })
                         }
                     });
                 },
@@ -99,6 +116,6 @@ getCurrentUserId().then(() => {
 });
 
 function setup() {
-  fetchAndRenderGroups();
+    fetchAndRenderGroups();
 }
 document.addEventListener("DOMContentLoaded", setup);
