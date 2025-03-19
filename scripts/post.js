@@ -222,14 +222,14 @@ function createPostCard(post, docId) {
 
   // Add the original price
   const originalPrice = document.createElement("p");
-  originalPrice.innerHTML = `<span class="font-bold">Original price:</span> $${post.price} /lb`;
+  originalPrice.innerHTML = `<span class="font-bold">Original price:</span> $${post.price}`;
   postInfoDiv.appendChild(originalPrice);
 
   // Add the bulk price
   const bulkPrice = document.createElement("p");
   bulkPrice.innerHTML = `<span class="font-bold">Bulk price:</span> $${Math.round(
     post.price * 0.6
-  )} /lb`; // Example discount
+  )}`; // Example discount
   postInfoDiv.appendChild(bulkPrice);
 
   // Add the category
@@ -272,23 +272,24 @@ function createPostCard(post, docId) {
   joinButton.dataset.groupId = docId;
 
   joinButton.id = "join-group";
+  joinButton.id = "join-" + docId;
   joinButton.className =
     "border-2 px-2 pb-1 rounded-b-xl ml-auto absolute top-0 right-2 bg-[#434343] self-right mb-2 mt-auto border-lime-50 border-3 shadow-lg border-t-0 hover:bg-white hover:border-[#434343] hover:border-3 hover:border-t-0 hover:text-green-900 font-bold";
   joinButton.textContent = "Join +";
 
   // Add click event listener directly to this button
-  joinButton.addEventListener("click", function () {
-    addPostToUsers(this.dataset.groupId);
-    joinButton.innerHTML = "Joined";
-  });
+  // joinButton.addEventListener("click", function () {
+  //   addPostToUsers(this.dataset.groupId);
+  //   joinButton.innerHTML = "Joined";
+  // });
 
-  // Add data attribute to store the group ID
-  joinButton.dataset.groupId = docId;
+  // // Add data attribute to store the group ID
+  // joinButton.dataset.groupId = docId;
 
-  // Add click event listener directly to this button
-  joinButton.addEventListener("click", function () {
-    addPostToUsers(this.dataset.groupId);
-  });
+  // // Add click event listener directly to this button
+  // joinButton.addEventListener("click", function () {
+  //   addPostToUsers(this.dataset.groupId);
+  // });
 
   cardActionsDiv.appendChild(joinButton);
 
@@ -300,6 +301,37 @@ function createPostCard(post, docId) {
   card.appendChild(postInfoDiv);
 
   return card;
+}
+
+function toggleGroupJoin(groupId) {
+  currentUser.get().then((userDoc) => {
+    let joinedGroups = userDoc.data().joinedGroups || [];
+    let joinButton = document.getElementById("join-" + groupId);
+
+    if (joinedGroups.includes(groupId)) {
+      // Ask for confirmation before leaving the group
+      if (confirm("Are you sure you want to leave this group?")) {
+        currentUser
+          .update({
+            joinedGroups: firebase.firestore.FieldValue.arrayRemove(groupId),
+          })
+          .then(() => {
+            console.log("Left group " + groupId);
+            joinButton.innerText = "Join +"; // Revert button text
+          });
+      }
+    } else {
+      // Join the group
+      currentUser
+        .update({
+          joinedGroups: firebase.firestore.FieldValue.arrayUnion(groupId),
+        })
+        .then(() => {
+          console.log("Joined group " + groupId);
+          joinButton.innerText = "Joined"; // Change button text
+        });
+    }
+  });
 }
 
 function fetchAndRenderPosts() {
@@ -316,7 +348,12 @@ function fetchAndRenderPosts() {
           const post = doc.data();
           const card = createPostCard(post, doc.id); // Pass doc.id as the postId parameter
           cardsSection.prepend(card);
+          
+
+          
+          
         });
+        
       },
       (error) => {
         console.error("Error fetching posts: ", error);
