@@ -71,7 +71,6 @@ async function fetchAndRenderGroups() {
             console.error("User is not logged in");
             return;
         }
-
         const cardsSection = document.querySelector("#group_article");
         const userRef = db.collection("users").doc(userId);
         const userDoc = await userRef.get();
@@ -87,6 +86,12 @@ async function fetchAndRenderGroups() {
                         if (userGroups.includes(doc.id)) {
                             const groups = doc.data();
                             const card = createGroupCard(groups, doc.id);
+                            const name = doc.data().title;
+                            const description = doc.data().description;
+                            const image = doc.data().image;
+                            const owner = doc.data().owner;
+                            const category = doc.data().category;
+                            const date = doc.data().deadline;
                             cardsSection.prepend(card);
                             document.getElementById(doc.id).addEventListener("click", () => {
                                 document.location.href = "groupinfo.html"
@@ -98,11 +103,15 @@ async function fetchAndRenderGroups() {
                     console.error("Error fetching posts: ", error);
                 }
             );
+        assignVal()
     } catch (error) {
         console.error("Error in fetchAndRenderGroups:", error);
     }
 }
 
+function assignVal(){
+    
+}
 
 getCurrentUserId().then(() => {
     setup(); 
