@@ -269,19 +269,18 @@ function createPostCard(post, docId) {
 
   // Add the join button
   const joinButton = document.createElement("button");
-    joinButton.dataset.groupId = docId;
+  joinButton.dataset.groupId = docId;
 
   joinButton.id = "join-group";
   joinButton.className =
     "border-2 px-2 pb-1 rounded-b-xl ml-auto absolute top-0 right-2 bg-[#434343] self-right mb-2 mt-auto border-lime-50 border-3 shadow-lg border-t-0 hover:bg-white hover:border-[#434343] hover:border-3 hover:border-t-0 hover:text-green-900 font-bold";
   joinButton.textContent = "Join +";
 
-
   // Add click event listener directly to this button
-   joinButton.addEventListener("click", function () {
-     addPostToUsers(this.dataset.groupId);
-   });
-
+  joinButton.addEventListener("click", function () {
+    addPostToUsers(this.dataset.groupId);
+    joinButton.innerHTML = "Joined";
+  });
 
   // Add data attribute to store the group ID
   joinButton.dataset.groupId = docId;
