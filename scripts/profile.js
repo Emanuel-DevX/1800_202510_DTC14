@@ -6,9 +6,7 @@
         // DOM Elements
         const profileForm = document.getElementById("profile-form");
         const profilePicInput = document.getElementById("profile-pic");
-        const profilePicPreview = document.getElementById(
-          "profile-pic-preview"
-        );
+        const profilePicPreview = document.getElementById("profile-pic-preview");
         const uploadBtn = document.getElementById("upload-btn");
         const backBtn = document.getElementById("back-btn");
         const cancelBtn = document.getElementById("cancel-btn");
