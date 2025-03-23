@@ -232,12 +232,17 @@ function createPostCard(post, docId) {
   minPrice.innerHTML = `<span class="font-bold">Bulk Discount Min:</span> $${post.minPrice}`;
   postInfoDiv.appendChild(minPrice);
 
-
-
   // Add the category
   const category = document.createElement("p");
   category.innerHTML = `<span class="font-bold">Category:</span> ${post.category}`;
   postInfoDiv.appendChild(category);
+  // Add the items
+  const items = document.createElement("p");
+  // items.innerHTML = `<span class="font-bold">Items:</span> ${post.items}`;
+  const itemsList = post.items.map((item) => `${item.name}`).join(", ");
+
+  items.innerHTML = `<span class="font-bold">Items:</span> ${itemsList}`;
+  postInfoDiv.appendChild(items);
 
   // Add the deadline
   const deadline = document.createElement("p");
@@ -245,11 +250,6 @@ function createPostCard(post, docId) {
     post.deadline
   ).toLocaleDateString()}`;
   postInfoDiv.appendChild(deadline);
-
-  // // Add the quantity
-  // const quantity = document.createElement("p");
-  // quantity.innerHTML = `<span class="font-bold">Quantity:</span> ${post.quantity}`;
-  // postInfoDiv.appendChild(quantity);
 
   // Add the posted by
   const postedBy = document.createElement("p");
@@ -282,15 +282,7 @@ function createPostCard(post, docId) {
   // Add click event listener directly to this button
   joinButton.addEventListener("click", function () {
     addPostToUsers(this.dataset.groupId);
-    joinButton.innerHTML = "Joined";
-  });
-
-  // Add data attribute to store the group ID
-  joinButton.dataset.groupId = docId;
-
-  // Add click event listener directly to this button
-  joinButton.addEventListener("click", function () {
-    addPostToUsers(this.dataset.groupId);
+    toggleGroupJoin(this.dataset.groupId);
   });
 
   cardActionsDiv.appendChild(joinButton);
@@ -305,35 +297,165 @@ function createPostCard(post, docId) {
   return card;
 }
 
-function toggleGroupJoin(groupId) {
-  currentUser.get().then((userDoc) => {
-    let joinedGroups = userDoc.data().joinedGroups || [];
-    let joinButton = document.getElementById("join-" + groupId);
+// async function toggleGroupJoin(groupId) {
+// await firebase.auth().onAuthStateChanged((user) => {
+//   if (user) {
+//     // Fetch the user's Firestore document
+//     firebase.firestore().collection('users').doc(user.uid).get()
+//       .then((userDoc) => {
+//         // Ensure the user document exists and has the joinedGroups field
+//         let joinedGroups = userDoc.exists ? userDoc.data().groups || [] : [];
 
-    if (joinedGroups.includes(groupId)) {
-      // Ask for confirmation before leaving the group
-      if (confirm("Are you sure you want to leave this group?")) {
-        currentUser
-          .update({
-            joinedGroups: firebase.firestore.FieldValue.arrayRemove(groupId),
-          })
-          .then(() => {
-            console.log("Left group " + groupId);
-            joinButton.innerText = "Join +"; // Revert button text
-          });
-      }
-    } else {
-      // Join the group
-      currentUser
-        .update({
-          joinedGroups: firebase.firestore.FieldValue.arrayUnion(groupId),
+//         // Assuming groupId is already defined
+//         let joinButton = document.getElementById("join-" + groupId);
+
+//         console.log('Current user:', userDoc.data().groups);
+//         console.log('Joined groups:', joinedGroups);
+
+//         // Additional logic here, e.g., enabling/disabling the button based on the user's joined groups
+//         if (joinedGroups.includes(groupId)) {
+//           joinButton.disabled = false; // Disable button if already in the group
+//           joinButton.innerHTML = "Leave";
+
+//           // Add a click event listener to the Leave button to show the confirmation dialog
+//           joinButton.addEventListener("click", async () => {
+//             // Show confirmation pop-up
+//             const confirmation = window.confirm(
+//               "Are you sure you want to leave this group?"
+//             );
+
+//             if (confirmation) {
+//               // If the user confirms, proceed to leave the group
+//               try {
+//                 // Here you can add the logic to update Firestore and remove the user from the group
+//                 await firebase
+//                   .firestore()
+//                   .collection("users")
+//                   .doc(user.uid)
+//                   .update({
+//                     groups: firebase.firestore.FieldValue.arrayRemove(groupId), // Removes groupId from user's groups
+//                   });
+
+//                 // After successfully removing the group, update the UI
+//                 joinButton.innerHTML = "Join +";
+//                 console.log("User has left the group");
+//               } catch (error) {
+//                 console.error("Error updating Firestore:", error);
+//               }
+//             }
+//           });
+//         } else {
+//           joinButton.disabled = false; // Enable button if not in the group
+//         }
+//       })
+//       .catch((error) => {
+//         console.error("Error fetching user document:", error);
+//       });
+//   } else {
+//     // Handle case when user is not logged in
+//     console.log('No user logged in');
+//   }
+// });
+
+//     // if (joinedGroups.includes(groupId)) {
+//     //   // Ask for confirmation before leaving the group
+//     //   if (confirm("Are you sure you want to leave this group?")) {
+//     //     currentUser
+//     //       .update({
+//     //         joinedGroups: firebase.firestore.FieldValue.arrayRemove(groupId),
+//     //       })
+//     //       .then(() => {
+//     //         console.log("Left group " + groupId);
+//     //         joinButton.innerText = "Join +"; // Revert button text
+//     //       });
+//     //   }
+//     // } else {
+//     //   // Join the group
+//     //   currentUser
+//     //     .update({
+//     //       joinedGroups: firebase.firestore.FieldValue.arrayUnion(groupId),
+//     //     })
+//     //     .then(() => {
+//     //       console.log("Joined group " + groupId);
+//     //       joinButton.innerText = "Joined"; // Change button text
+//     //     });
+//     // }
+
+// }
+async function toggleGroupJoin(groupId) {
+  await firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // Fetch the user's Firestore document
+      firebase
+        .firestore()
+        .collection("users")
+        .doc(user.uid)
+        .get()
+        .then((userDoc) => {
+          // Ensure the user document exists and has the joinedGroups field
+          let joinedGroups = userDoc.exists ? userDoc.data().groups || [] : [];
+
+          // Assuming groupId is already defined
+          let joinButton = document.getElementById("join-" + groupId);
+
+          // console.log("Current user:", userDoc.data().groups);
+          // console.log("Joined groups:", joinedGroups);
+
+          // Clear any existing event listeners
+          joinButton.removeEventListener("click", handleLeaveClick);
+
+          // Check if the user is already part of the group
+          if (joinedGroups.includes(groupId)) {
+            joinButton.disabled = false; // Enable button if already in the group
+            joinButton.innerHTML = "Leave";
+
+            // Add a click event listener to the Leave button to show the confirmation dialog
+            joinButton.addEventListener("click", handleLeaveClick);
+            addPostToUsers(groupId);
+          } else {
+            joinButton.disabled = false; // Enable button if not in the group
+            joinButton.innerHTML = "Join +";
+          }
         })
-        .then(() => {
-          console.log("Joined group " + groupId);
-          joinButton.innerText = "Joined"; // Change button text
+        .catch((error) => {
+          console.error("Error fetching user document:", error);
         });
+    } else {
+      // Handle case when user is not logged in
+      console.log("No user logged in");
     }
   });
+}
+
+// Define the handleLeaveClick function to show the confirmation dialog
+async function handleLeaveClick(event) {
+  const groupId = event.target.id.replace("join-", ""); // Extract groupId from button ID
+  const confirmation = window.confirm(
+    "Are you sure you want to leave this group?"
+  );
+
+  if (confirmation) {
+    try {
+      // Get the current user
+      const user = firebase.auth().currentUser;
+
+      // Remove the group from the user's groups in Firestore
+      await firebase
+        .firestore()
+        .collection("users")
+        .doc(user.uid)
+        .update({
+          groups: firebase.firestore.FieldValue.arrayRemove(groupId), // Removes groupId from user's groups
+        });
+
+      // After successfully removing the group, update the UI
+      const joinButton = document.getElementById("join-" + groupId);
+      joinButton.innerHTML = "Join +";
+      console.log("User has left the group");
+    } catch (error) {
+      console.error("Error updating Firestore:", error);
+    }
+  }
 }
 
 function fetchAndRenderPosts() {
@@ -350,6 +472,7 @@ function fetchAndRenderPosts() {
           const post = doc.data();
           const card = createPostCard(post, doc.id); // Pass doc.id as the postId parameter
           cardsSection.prepend(card);
+          toggleGroupJoin(doc.id);
         });
       },
       (error) => {
