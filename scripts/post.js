@@ -138,7 +138,7 @@ async function addPostToUsers(groupId) {
       groups: firebase.firestore.FieldValue.arrayUnion(groupId),
     });
 
-    console.log("Successfully added group to user:", globalUserId);
+    //console.log("Successfully added group to user:", globalUserId);
   } catch (e) {
     console.error("Error updating document: ", e);
   }
@@ -297,91 +297,6 @@ function createPostCard(post, docId) {
   return card;
 }
 
-// async function toggleGroupJoin(groupId) {
-// await firebase.auth().onAuthStateChanged((user) => {
-//   if (user) {
-//     // Fetch the user's Firestore document
-//     firebase.firestore().collection('users').doc(user.uid).get()
-//       .then((userDoc) => {
-//         // Ensure the user document exists and has the joinedGroups field
-//         let joinedGroups = userDoc.exists ? userDoc.data().groups || [] : [];
-
-//         // Assuming groupId is already defined
-//         let joinButton = document.getElementById("join-" + groupId);
-
-//         console.log('Current user:', userDoc.data().groups);
-//         console.log('Joined groups:', joinedGroups);
-
-//         // Additional logic here, e.g., enabling/disabling the button based on the user's joined groups
-//         if (joinedGroups.includes(groupId)) {
-//           joinButton.disabled = false; // Disable button if already in the group
-//           joinButton.innerHTML = "Leave";
-
-//           // Add a click event listener to the Leave button to show the confirmation dialog
-//           joinButton.addEventListener("click", async () => {
-//             // Show confirmation pop-up
-//             const confirmation = window.confirm(
-//               "Are you sure you want to leave this group?"
-//             );
-
-//             if (confirmation) {
-//               // If the user confirms, proceed to leave the group
-//               try {
-//                 // Here you can add the logic to update Firestore and remove the user from the group
-//                 await firebase
-//                   .firestore()
-//                   .collection("users")
-//                   .doc(user.uid)
-//                   .update({
-//                     groups: firebase.firestore.FieldValue.arrayRemove(groupId), // Removes groupId from user's groups
-//                   });
-
-//                 // After successfully removing the group, update the UI
-//                 joinButton.innerHTML = "Join +";
-//                 console.log("User has left the group");
-//               } catch (error) {
-//                 console.error("Error updating Firestore:", error);
-//               }
-//             }
-//           });
-//         } else {
-//           joinButton.disabled = false; // Enable button if not in the group
-//         }
-//       })
-//       .catch((error) => {
-//         console.error("Error fetching user document:", error);
-//       });
-//   } else {
-//     // Handle case when user is not logged in
-//     console.log('No user logged in');
-//   }
-// });
-
-//     // if (joinedGroups.includes(groupId)) {
-//     //   // Ask for confirmation before leaving the group
-//     //   if (confirm("Are you sure you want to leave this group?")) {
-//     //     currentUser
-//     //       .update({
-//     //         joinedGroups: firebase.firestore.FieldValue.arrayRemove(groupId),
-//     //       })
-//     //       .then(() => {
-//     //         console.log("Left group " + groupId);
-//     //         joinButton.innerText = "Join +"; // Revert button text
-//     //       });
-//     //   }
-//     // } else {
-//     //   // Join the group
-//     //   currentUser
-//     //     .update({
-//     //       joinedGroups: firebase.firestore.FieldValue.arrayUnion(groupId),
-//     //     })
-//     //     .then(() => {
-//     //       console.log("Joined group " + groupId);
-//     //       joinButton.innerText = "Joined"; // Change button text
-//     //     });
-//     // }
-
-// }
 async function toggleGroupJoin(groupId) {
   await firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -427,36 +342,131 @@ async function toggleGroupJoin(groupId) {
   });
 }
 
+
+const cancelBtn = document.getElementById("cancel-btn");
+const confirmationModal = document.getElementById("confirmation-modal");
+const confirmSaveBtn = document.getElementById("confirm-save");
+const cancelConfirmBtn = document.getElementById("cancel-confirm");
+const notificationToast = document.getElementById("notification-toast");
+const toastContent = document.getElementById("toast-content");
+
+function showNotification(message, type) {
+  // Create notification content based on type
+  let iconHTML = "";
+  let bgColor = "";
+
+  switch (type) {
+    case "success":
+      iconHTML =
+        '<svg class="w-6 h-6 text-white mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+      bgColor = "bg-green-600";
+      break;
+    case "error":
+      iconHTML =
+        '<svg class="w-6 h-6 text-white mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+      bgColor = "bg-red-600";
+      break;
+    case "loading":
+      iconHTML =
+        '<svg class="animate-spin h-6 w-6 text-white mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+      bgColor = "bg-blue-600";
+      break;
+    default:
+      iconHTML =
+        '<svg class="w-6 h-6 text-white mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
+      bgColor = "bg-gray-600";
+  }
+
+  // Set notification content
+  toastContent.innerHTML = `${iconHTML}<span class="text-white">${message}</span>`;
+
+  // Set background color
+  notificationToast.className = `fixed bottom-24 right-4 p-4 rounded-lg shadow-lg transition-opacity duration-300 ${bgColor}`;
+
+  // Show the notification
+  notificationToast.classList.remove("hidden");
+  setTimeout(() => {
+    notificationToast.classList.remove("opacity-0");
+  }, 100);
+
+  // Hide after 5 seconds (unless it's a loading notification)
+  if (type !== "loading") {
+    setTimeout(() => {
+      notificationToast.classList.add("opacity-0");
+      setTimeout(() => {
+        notificationToast.classList.add("hidden");
+      }, 100);
+    }, 2000);
+  }
+   
+}
+
 // Define the handleLeaveClick function to show the confirmation dialog
+
 async function handleLeaveClick(event) {
   const groupId = event.target.id.replace("join-", ""); // Extract groupId from button ID
-  const confirmation = window.confirm(
-    "Are you sure you want to leave this group?"
-  );
 
-  if (confirmation) {
-    try {
-      // Get the current user
-      const user = firebase.auth().currentUser;
+  // Show confirmation modal
+  confirmationModal.classList.remove("hidden");
 
-      // Remove the group from the user's groups in Firestore
-      await firebase
-        .firestore()
-        .collection("users")
-        .doc(user.uid)
-        .update({
-          groups: firebase.firestore.FieldValue.arrayRemove(groupId), // Removes groupId from user's groups
-        });
+  // Store the groupId in a variable that can be accessed by the confirmation button handler
+  confirmSaveBtn.dataset.groupId = groupId;
 
-      // After successfully removing the group, update the UI
-      const joinButton = document.getElementById("join-" + groupId);
-      joinButton.innerHTML = "Join +";
-      console.log("User has left the group");
-    } catch (error) {
-      console.error("Error updating Firestore:", error);
-    }
-  }
+  // Update confirmation modal text to be specific to leaving a group
+  document.querySelector("#confirmation-modal .modal-title").textContent =
+    "Leave Group";
+  document.querySelector("#confirmation-modal .modal-message").textContent =
+    "Are you sure you want to leave this group?";
+
+  // Update confirm button text
+  confirmSaveBtn.textContent = "Leave Group";
 }
+
+// You'll need to add this event listener outside the function
+confirmSaveBtn.addEventListener("click", async function () {
+  // Hide confirmation modal
+  confirmationModal.classList.add("hidden");
+
+  // Get the groupId from the dataset
+  const groupId = this.dataset.groupId;
+
+  // Get current user
+  const user = firebase.auth().currentUser;
+  if (!user) {
+    showNotification("You must be logged in to leave a group.", "error");
+    return;
+  }
+
+  // Show loading notification
+  //showNotification("Processing your request...", "loading");
+
+  try {
+    // Remove the group from the user's groups in Firestore
+    await firebase
+      .firestore()
+      .collection("users")
+      .doc(user.uid)
+      .update({
+        groups: firebase.firestore.FieldValue.arrayRemove(groupId), // Removes groupId from user's groups
+      });
+
+    // After successfully removing the group, update the UI
+    const joinButton = document.getElementById("join-" + groupId);
+    joinButton.innerHTML = "Join +";
+
+    // Show success notification
+    showNotification("You have successfully left the group.", "success");
+    console.log("User has left the group");
+  } catch (error) {
+    console.error("Error updating Firestore:", error);
+    showNotification("Error leaving group: " + error.message, "error");
+  }
+});
+
+// Make sure to add this event listener as well
+cancelConfirmBtn.addEventListener("click", function () {
+  confirmationModal.classList.add("hidden");
+});
 
 function fetchAndRenderPosts() {
   const cardsSection = document.querySelector(".cards");
