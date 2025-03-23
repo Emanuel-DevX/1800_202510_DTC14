@@ -115,11 +115,11 @@ async function addPost(postData) {
       post_id: postData.post_id,
       title: postData.title,
       owner: postData.owner,
-      price: postData.price, // New field for price
+      minPrice: postData.minPrice, // New field for price
       category: postData.category, // New field for category
       deadline: postData.deadline, // New field for deadline
-      quantity: postData.quantity,
       members: postData.members,
+      items: postData.items,
     });
     addPostToUsers(docRef.id);
 
@@ -161,8 +161,15 @@ function submitForm() {
       const description = document.getElementById("description").value;
       const category = document.getElementById("category").value;
       const price = document.getElementById("price").value;
-      const quantity = document.getElementById("quantity").value;
       const deadline = document.getElementById("deadline").value;
+      let items = [];
+      document.querySelectorAll("#item-list .item-entry").forEach((itemRow) => {
+        let itemName = itemRow.querySelector(".item-name").value;
+        let itemPrice = itemRow.querySelector(".item-price").value;
+        if (itemName && itemPrice) {
+          items.push({ name: itemName, price: parseFloat(itemPrice) });
+        }
+      });
 
       // Log the values to the console (or process them as needed)
       post = {
@@ -173,11 +180,11 @@ function submitForm() {
         post_id: "post123",
         title: title,
         owner: globalUserId,
-        price: price, // New price field
+        minPrice: price, // New price field
         category: category, // New category field
         deadline: deadline, // New deadline field
-        quantity: quantity,
         members: [globalUserId],
+        items: items,
       };
 
       addPost(post);
@@ -192,7 +199,7 @@ function createPostCard(post, docId) {
   // Create the card container
   const card = document.createElement("div");
   card.className =
-    "relative post-1 max-w-[320px] md:w-80 lg:w-[31%] shadow-lg bg-[#434343] text-lime-50 rounded-2xl md:mx-2 mb-6";
+    "relative md:min-h-115 post-1 max-w-[320px] md:w-80 lg:w-[31%] shadow-lg bg-[#434343] text-lime-50 rounded-2xl md:mx-2 mb-6";
 
   // When setting the data attribute, use the docId parameter:
 
@@ -221,16 +228,11 @@ function createPostCard(post, docId) {
   postInfoDiv.appendChild(description);
 
   // Add the original price
-  const originalPrice = document.createElement("p");
-  originalPrice.innerHTML = `<span class="font-bold">Original price:</span> $${post.price}`;
-  postInfoDiv.appendChild(originalPrice);
+  const minPrice = document.createElement("p");
+  minPrice.innerHTML = `<span class="font-bold">Bulk Discount Min:</span> $${post.minPrice}`;
+  postInfoDiv.appendChild(minPrice);
 
-  // Add the bulk price
-  const bulkPrice = document.createElement("p");
-  bulkPrice.innerHTML = `<span class="font-bold">Bulk price:</span> $${Math.round(
-    post.price * 0.6
-  )}`; // Example discount
-  postInfoDiv.appendChild(bulkPrice);
+
 
   // Add the category
   const category = document.createElement("p");
@@ -244,10 +246,10 @@ function createPostCard(post, docId) {
   ).toLocaleDateString()}`;
   postInfoDiv.appendChild(deadline);
 
-  // Add the quantity
-  const quantity = document.createElement("p");
-  quantity.innerHTML = `<span class="font-bold">Quantity:</span> ${post.quantity}`;
-  postInfoDiv.appendChild(quantity);
+  // // Add the quantity
+  // const quantity = document.createElement("p");
+  // quantity.innerHTML = `<span class="font-bold">Quantity:</span> ${post.quantity}`;
+  // postInfoDiv.appendChild(quantity);
 
   // Add the posted by
   const postedBy = document.createElement("p");
@@ -348,12 +350,7 @@ function fetchAndRenderPosts() {
           const post = doc.data();
           const card = createPostCard(post, doc.id); // Pass doc.id as the postId parameter
           cardsSection.prepend(card);
-          
-
-          
-          
         });
-        
       },
       (error) => {
         console.error("Error fetching posts: ", error);

@@ -62,8 +62,29 @@ function sideNavbar() {
     sideNav.classList.remove("w-48");
   });
 }
+function postList() {
+  document.getElementById("add-item").addEventListener("click", function () {
+    const itemList = document.getElementById("item-list");
+    const newItem = document.createElement("div");
+    newItem.classList.add("item-entry", "flex", "gap-2", "mb-2");
+    newItem.innerHTML = `
+        <button type="button" class="remove-item text-red-500">✖</button>
+
+      <input type="text" class="item-name w-full p-2 border rounded" placeholder="Item name" required />
+      <input type="number" class="item-price w-1/3 p-2 border rounded" placeholder="Price ($)" required />
+    `;
+    itemList.appendChild(newItem);
+
+    newItem
+      .querySelector(".remove-item")
+      .addEventListener("click", function () {
+        newItem.remove();
+      });
+  });
+}
 
 function home() {
+  postList();
   profileSetting();
   sideNavbar();
   logout();
