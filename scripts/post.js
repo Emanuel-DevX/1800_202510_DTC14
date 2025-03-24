@@ -436,7 +436,6 @@ async function toggleGroupJoin(groupId) {
   });
 }
 
-
 const cancelBtn = document.getElementById("cancel-btn");
 const confirmationModal = document.getElementById("confirmation-modal");
 const confirmSaveBtn = document.getElementById("confirm-save");
@@ -492,7 +491,6 @@ function showNotification(message, type) {
       }, 100);
     }, 2000);
   }
-   
 }
 
 // Define the handleLeaveClick function to show the confirmation dialog
@@ -547,7 +545,10 @@ confirmSaveBtn.addEventListener("click", async function () {
     // After successfully removing the group, update the UI
     const joinButton = document.getElementById("join-" + groupId);
     joinButton.innerHTML = "Join +";
-
+    await firebase.firestore
+      .collection("Posts")
+      .doc(groupId)
+      .update({ members: firebase.firestore.FieldValue.arrayRemove(user.uid) });
     // Show success notification
     showNotification("You have successfully left the group.", "success");
     console.log("User has left the group");
