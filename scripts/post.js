@@ -195,11 +195,105 @@ function submitForm() {
     });
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+  // Get all filter buttons
+  const filterButtons = document.querySelectorAll(".filter-btn");
+  const postsContainer = document.querySelector(".posts");
+  let allButton = null; // Reference to the "All" button
+
+  // Add click event to each filter button
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const selectedCategory = this.getAttribute("data-category");
+
+      // Update active button styling - including the "All" button if it exists
+      const allButtons = [...filterButtons];
+      if (allButton) allButtons.push(allButton);
+
+      allButtons.forEach((btn) => {
+        btn.classList.remove("bg-green-900", "text-white");
+        btn.classList.add("border-green-900/50", "text-green-900");
+      });
+
+      // Highlight only the clicked button
+      this.classList.remove("border-green-900/50", "text-green-900", "px-2");
+      this.classList.add("bg-green-900", "text-white", "px-2");
+
+      // Get all post cards
+      const allPosts = document.querySelectorAll(".post-1");
+
+      // Loop through each post card
+      allPosts.forEach((post) => {
+        // Find the category element within the post
+        const categoryElement = post.querySelector("p:nth-of-type(3)"); // Assuming category is the third paragraph
+
+        if (categoryElement) {
+          const postCategory = categoryElement.textContent
+            .replace("Category:", "")
+            .trim();
+
+          // Show/hide based on selected category
+          if (selectedCategory === "All" || postCategory === selectedCategory) {
+            post.style.display = "block";
+          } else {
+            post.style.display = "none";
+          }
+        }
+      });
+    });
+  });
+
+  // Add "All" button
+  function addAllButton() {
+    allButton = document.createElement("button");
+    allButton.setAttribute("data-category", "All");
+    allButton.classList.add(
+      "max-h-8",
+      "filter-btn",
+      "border-2",
+      "border-green-900/50",
+      "text-green-900",
+      "font-bold",
+      "rounded-full",
+      "px-1",
+      "mr-2"
+    );
+    allButton.textContent = "All";
+
+    const filterButtonsContainer = document.querySelector(".filter-buttons");
+    filterButtonsContainer.prepend(allButton);
+
+    // Add event listener to the "All" button
+    allButton.addEventListener("click", function () {
+      // Update button styling for all buttons including the original filter buttons
+      const allButtons = [...filterButtons];
+      allButtons.push(allButton);
+
+      allButtons.forEach((btn) => {
+        btn.classList.remove("bg-green-900", "text-white");
+        btn.classList.add("border-green-900/50", "text-green-900");
+      });
+
+      // Highlight only the "All" button
+      this.classList.remove("border-green-900/50", "text-green-900");
+      this.classList.add("bg-green-900", "text-white");
+
+      // Show all posts
+      document.querySelectorAll(".post-1").forEach((post) => {
+        post.style.display = "block";
+      });
+    });
+  }
+
+  addAllButton();
+});
+
 function createPostCard(post, docId) {
   // Create the card container
   const card = document.createElement("div");
   card.className =
     "relative md:min-h-115 post-1 max-w-[320px] md:w-80 lg:w-[31%] shadow-lg bg-[#434343] text-lime-50 rounded-2xl md:mx-2 mb-6";
+  card.setAttribute("data-category", post.category);
 
   // When setting the data attribute, use the docId parameter:
 

@@ -315,7 +315,7 @@
                   <!-- Deadline -->
                   <div class="">
                     <label class="block text-green-900 font-medium"
-                      >Deadline to Join</label
+                      >Shopping Date</label
                     >
                     <input
                       type="date"
@@ -329,9 +329,15 @@
                       >Category</label
                     >
                     <select id="category" class="w-full p-2 border rounded">
-                      <option>Electronics</option>
+                      <option class="hover:bg-green-800">Electronics</option>
                       <option>Clothing</option>
                       <option>Groceries</option>
+                      <option>Home & Kitchen</option>
+                      <option>Beauty & Health</option>
+                      <option>Sports & Outdoors</option>
+                      <option>Automotive</option>
+                      <option>Books & Stationery</option>
+                      <option>Toys & Games</option>
                       <option>Other</option>
                     </select>
                   </div>
@@ -387,52 +393,52 @@
               class="filter-buttons md:mx-3 flex overflow-x-auto scrollbar-hide flex-nowrap"
             >
               <button
-                class="border-2 border-green-900/50 text-green-900 font-bold rounded-full px-1 mr-2"
-              >
-                Popular
-              </button>
-              <button
-                class="border-2 border-green-900/50 text-green-900 font-bold rounded-full px-1 mr-2"
-              >
-                Food
-              </button>
-
-              <button
-                class="border-2 border-green-900/50 text-green-900 font-bold rounded-full px-1 mr-2"
-              >
-                Veggie
-              </button>
-              <button
-                class="border-2 border-green-900/50 text-green-900 font-bold rounded-full px-1 mr-2"
-              >
-                Upcoming
-              </button>
-              <button
-                class="border-2 border-green-900/50 text-green-900 font-bold rounded-full px-1 mr-2"
+                data-category="Electronics" class="filter-btn border-2 border-green-900/50 text-green-900 font-bold rounded-full max-h-8 px-1 mr-2"
               >
                 Electronics
               </button>
-
               <button
-                class="border-2 border-green-900/50 text-green-900 font-bold rounded-full px-1 mr-2"
+                data-category="Clothing" class="filter-btn border-2 border-green-900/50 text-green-900 font-bold rounded-full max-h-8 px-1 mr-2"
               >
-                Cloth
-              </button>
-              <button
-                class="border-2 border-green-900/50 text-green-900 font-bold rounded-full px-1 mr-2"
-              >
-                Shoes
-              </button>
-              <button
-                class="border-2 border-green-900/50 text-green-900 font-bold rounded-full px-1 mr-2"
-              >
-                Tools
+                Clothing
               </button>
 
               <button
-                class="border-2 border-green-900/50 text-green-900 font-bold rounded-full px-1 mr-2"
+                data-category="Groceries" class="filter-btn border-2 border-green-900/50 text-green-900 font-bold rounded-full max-h-8 px-1 mr-2"
               >
-                Furnitures
+                Groceries
+              </button>
+              <button
+                data-category="Home & Kitchen" class="filter-btn border-2 border-green-900/50 text-green-900 font-bold rounded-full max-h-8 w-auto whitespace-nowrap px-1 mr-2"
+              >
+                Home & Kitchen
+              </button>
+              <button
+                data-category="Beauty & Health" class="filter-btn border-2 border-green-900/50 text-green-900 font-bold rounded-full max-h-8 w-auto whitespace-nowrap  px-1 mr-2"
+              >
+                Beauty & Health
+              </button>
+
+              <button
+                data-category="Sports & Outdoors" class="filter-btn border-2 border-green-900/50 text-green-900 font-bold rounded-full max-h-8 w-auto whitespace-nowrap  px-1 mr-2"
+              >
+                Sports & Outdoors
+              </button>
+              <button
+                data-category="Automotive" class="filter-btn border-2 border-green-900/50 text-green-900 font-bold rounded-full max-h-8 w-auto whitespace-nowrap  px-1 mr-2"
+              >
+                Automotive
+              </button>
+              <button
+                data-category="Books & Stationery" class="filter-btn border-2 border-green-900/50 text-green-900 font-bold rounded-full max-h-8 w-auto whitespace-nowrap  px-1 mr-2"
+              >
+                Books & Stationery
+              </button>
+
+              <button
+                data-category="Toys & Games" class="filter-btn border-2 border-green-900/50 text-green-900 font-bold rounded-full max-h-8 w-auto whitespace-nowrap px-1 mr-2"
+              >
+                Toys & Games
               </button>
             </div>
           </div>
