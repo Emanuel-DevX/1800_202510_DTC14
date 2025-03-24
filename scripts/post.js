@@ -545,7 +545,7 @@ confirmSaveBtn.addEventListener("click", async function () {
     // After successfully removing the group, update the UI
     const joinButton = document.getElementById("join-" + groupId);
     joinButton.innerHTML = "Join +";
-    await firebase.firestore
+    await firebase.firestore()
       .collection("Posts")
       .doc(groupId)
       .update({ members: firebase.firestore.FieldValue.arrayRemove(user.uid) });
