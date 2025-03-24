@@ -132,10 +132,24 @@ async function addPostToUsers(groupId) {
   try {
     // Reference to the specific user document
     const userRef = db.collection("users").doc(globalUserId);
+    const groupRef = firebase.firestore().collection("Posts").doc(groupId);
+
+    const docSnap = await groupRef.get();
+    console.log("Before update, members:", docSnap.data().members);
+
+    if (!docSnap.exists) {
+      console.error("Group document does not exist.");
+      return;
+    }
 
     // Update the document with arrayUnion to add to the array
     await userRef.update({
       groups: firebase.firestore.FieldValue.arrayUnion(groupId),
+    });
+    //console.log(globalUserId, groupId);
+
+    await groupRef.update({
+      members: firebase.firestore.FieldValue.arrayUnion(globalUserId),
     });
 
     //console.log("Successfully added group to user:", globalUserId);
@@ -436,6 +450,7 @@ async function toggleGroupJoin(groupId) {
   });
 }
 
+
 const cancelBtn = document.getElementById("cancel-btn");
 const confirmationModal = document.getElementById("confirmation-modal");
 const confirmSaveBtn = document.getElementById("confirm-save");
@@ -545,7 +560,8 @@ confirmSaveBtn.addEventListener("click", async function () {
     // After successfully removing the group, update the UI
     const joinButton = document.getElementById("join-" + groupId);
     joinButton.innerHTML = "Join +";
-    await firebase.firestore()
+    await firebase
+      .firestore()
       .collection("Posts")
       .doc(groupId)
       .update({ members: firebase.firestore.FieldValue.arrayRemove(user.uid) });
