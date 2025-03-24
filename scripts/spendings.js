@@ -3,7 +3,7 @@ function createGroupCard(groups, docid) {
     const card = document.createElement("div");
     card.id = docid
     card.className =
-        "w-full inline-flex gap-6 shadow-lg bg-[#343434] text-lime-50 rounded-2xl mx-2 mb-3 p-4";
+        "w-full inline-flex gap-6 shadow-lg bg-green-900 text-lime-50 rounded-2xl mx-2 mb-3 p-4";
 
     // Add the image section
     const imageDiv = document.createElement("div");
@@ -89,6 +89,7 @@ async function fetchAndRenderGroups() {
                             const card = createGroupCard(groups, doc.id);
                             cardsSection.prepend(card);
                             document.getElementById(doc.id).addEventListener("click", () => {
+                                localStorage.setItem('trip_id', doc.id);
                                 document.location.href = "spendingsinfo.html"
                             })
                         }

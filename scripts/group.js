@@ -19,7 +19,7 @@ function createGroupCard(groups, docid) {
   place.className = "flex justify-between w-full items-center";
   const groupInfoDiv = document.createElement("div");
   const title = document.createElement("h3");
-  title.className = "font-bold text-sm ";
+  title.className = "font-bold text-xl ";
   title.textContent = groups.title;
   groupInfoDiv.appendChild(title);
 
@@ -83,14 +83,9 @@ async function fetchAndRenderGroups() {
             if (userGroups.includes(doc.id)) {
               const groups = doc.data();
               const card = createGroupCard(groups, doc.id);
-              const name = doc.data().title;
-              const description = doc.data().description;
-              const image = doc.data().image;
-              const owner = doc.data().owner;
-              const category = doc.data().category;
-              const date = doc.data().deadline;
               cardsSection.prepend(card);
               document.getElementById(doc.id).addEventListener("click", () => {
+                localStorage.setItem('trip_id', doc.id);
                 document.location.href = "groupinfo.html";
               });
             }
@@ -100,13 +95,11 @@ async function fetchAndRenderGroups() {
           console.error("Error fetching posts: ", error);
         }
       );
-    assignVal();
   } catch (error) {
     console.error("Error in fetchAndRenderGroups:", error);
   }
 }
 
-function assignVal() {}
 
 getCurrentUserId()
   .then(() => {
