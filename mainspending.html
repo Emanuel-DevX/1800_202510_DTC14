@@ -12,17 +12,12 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
-       <link
-      rel="icon"
-      href="/images/favicon_io/android-chrome-192x192.png"
-      type="image/x-icon"
-    />
+    <link rel="icon" href="/images/favicon_io/android-chrome-192x192.png" type="image/x-icon" />
     <link rel="stylesheet" href="styles/style.css" />
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     <script src="scripts/firebaseAPI_DTC14.js"></script>
     <script src="scripts/home.js" defer></script>
     <script src="scripts/spendings.js" defer></script>
-    <script src="scripts/spendingsinfo.js" defer></script>
     <script src="scripts/mainspendings.js" defer></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -42,14 +37,10 @@
                 </div>
 
                 <div class="profile flex items-center">
-                    <button id="back-btn" class="flex text-white items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd"
-                                d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        Back to Spendings
-                    </button>
+                    <h1 class="user-name font-bold text-lime-50 mx-2">
+                        <span id="name-goes-here"></span>
+                    </h1>
+                    <img id="profile-icon" class="w-12 cursor-pointer mr-0 md:mr-6 rounded-full" src="images/profile.jpg" alt="" />
                     <div id="profile-menu"
                         class="hidden z-50 absolute top-16 right-2 bg-[#323232] text-lime-50 p-3 rounded-lg shadow-md w-48">
                         <ul class="menu-options space-y-2">
@@ -63,8 +54,7 @@
                                 <a href="/privacy.html" class="block px-4 py-2 hover:bg-green-700">Privacy policy</a>
                             </li>
                             <li>
-                                <a id="logout-btn" href="/index.html"
-                                    class="block px-4 py-2 hover:bg-green-700">Logout</a>
+                                <a id="logout-btn" href="/index.html" class="block px-4 py-2 hover:bg-green-700">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -138,14 +128,14 @@
                     </div>
                 </div>
             </nav>
-        
-            <div class="h-screen shadow w-11/12 mx-4 flex flex-col bg-[#323232] rounded-2xl">
+
+            <div class="h-auto shadow w-11/12 mx-4 flex flex-col bg-[#323232] rounded-2xl">
+                <h2 class="font-bold text-white bg-green-900 max-w-44 rounded-xl text-xl mb-2 py-1 pl-6 ">My Spendings</h2>
                 <article>
-                    <header class="max-w-auto h-28 bg-green-900 text-lime-50 overflow-hidden  whitespace-nowrap rounded-2xl m-2 mb-3 py-5 px-10 ">
-                        <p class="max-w-64"><span id="group_name"></span></p>
+                    <header class="max-w-auto h-28 bg-green-900 text-lime-50 overflow-hidden  whitespace-nowrap rounded-2xl m-2 mb-3 py-10 px-8 ">
                         <div class="flex justify-between">
-                            <p class="font-bold text-xl md:text-4xl">TOTAL SPENDING :</p>
-                            <p class="font-bold text-xl md:text-4xl">$34</p>
+                            <p class="font-bold text-2xl md:text-4xl">TOTAL SPENDING :</p>
+                            <p class="font-bold text-2xl md:text-4xl"></p>
                         </div>
                     </header>
 
@@ -153,12 +143,10 @@
                         class="max-w-auto h-20 bg-green-800 text-lime-50 rounded-2xl m-2 mb-3 py-4 px-8 flex justify-between">
                         <div>
                             <div class="inline-flex gap-4">
-                                <img class="w-12 rounded-full" src="images/product.jpg" alt="" />
-                                <h2 class="text-xl md:text-2xl py-2">Carrots</h2>
+                                <h2 class="text-xl font-bold md:text-2xl py-2">Jan - Feb</h2>
                             </div>
                         </div>
-                        <div class="flex gap-2 md:gap-8 p-2 font-bold">
-                            <h1 class="text-xl md:text-2xl "> x2</h1>
+                        <div class="flex gap-2 md:gap-8 p-2 ">
                             <h1 class="text-xl md:text-2xl "> =</h1>
                             <h1 class="text-xl md:text-2xl "> $4.50</h1>
                         </div>
@@ -168,12 +156,10 @@
                         class="max-w-auto h-20 bg-green-800 text-lime-50 rounded-2xl m-2 mb-3 py-4 px-8 flex justify-between">
                         <div>
                             <div class="inline-flex gap-4">
-                                <img class="w-12 rounded-full" src="images/product.jpg" alt="" />
-                                <h2 class="text-xl md:text-2xl py-2">Apples</h2>
+                                <h2 class="text-xl font-bold md:text-2xl py-2">Mar - Apr</h2>
                             </div>
                         </div>
-                        <div class="flex gap-2 md:gap-8 p-2 font-bold">
-                            <h1 class="text-xl md:text-2xl "> x3</h1>
+                        <div class="flex gap-2 md:gap-8 p-2 ">
                             <h1 class="text-xl md:text-2xl "> =</h1>
                             <h1 class="text-xl md:text-2xl "> $7.50</h1>
                         </div>
@@ -183,12 +169,10 @@
                         class="max-w-auto h-20 bg-green-800 text-lime-50 rounded-2xl m-2 mb-3 py-4 px-8 flex justify-between">
                         <div>
                             <div class="inline-flex gap-4">
-                                <img class="w-12 rounded-full" src="images/product.jpg" alt="" />
-                                <h2 class="text-xl md:text-2xl py-2">Grapes</h2>
+                                <h2 class="text-xl font-bold md:text-2xl py-2">May - June</h2>
                             </div>
                         </div>
-                        <div class="flex gap-2 md:gap-8 p-2 font-bold">
-                            <h1 class="text-xl md:text-2xl "> x1</h1>
+                        <div class="flex gap-2 md:gap-8 p-2 ">
                             <h1 class="text-xl md:text-2xl "> =</h1>
                             <h1 class="text-xl md:text-2xl "> $3.50</h1>
                         </div>
@@ -198,12 +182,10 @@
                         class="max-w-auto h-20 bg-green-800 text-lime-50 rounded-2xl m-2 mb-3 py-4 px-8 flex justify-between">
                         <div>
                             <div class="inline-flex gap-4">
-                                <img class="w-12 rounded-full" src="images/product.jpg" alt="" />
-                                <h2 class="text-xl md:text-2xl py-2">Onions</h2>
+                                <h2 class="text-xl font-bold md:text-2xl py-2">July - Aug</h2>
                             </div>
                         </div>
-                        <div class="flex gap-2 md:gap-8 p-2 font-bold">
-                            <h1 class="text-xl md:text-2xl "> x4</h1>
+                        <div class="flex gap-2 md:gap-8 p-2 ">
                             <h1 class="text-xl md:text-2xl "> =</h1>
                             <h1 class="text-xl md:text-2xl "> $6.50</h1>
                         </div>
@@ -213,15 +195,31 @@
                         class="max-w-auto h-20 bg-green-800 text-lime-50 rounded-2xl m-2 mb-3 py-4 px-8 flex justify-between">
                         <div>
                             <div class="inline-flex gap-4">
-                                <img class="w-12 rounded-full" src="images/product.jpg" alt="" />
-                                <h2 class="text-xl md:text-2xl py-2">Carrots</h2>
+                                <h2 class="text-xl font-bold md:text-2xl py-2">Sept - Oct</h2>
                             </div>
                         </div>
-                        <div class="flex gap-2 md:gap-8 p-2 font-bold">
-                            <h1 class="text-xl md:text-2xl "> x2</h1>
+                        <div class="flex gap-2 md:gap-8 p-2">
                             <h1 class="text-xl md:text-2xl "> =</h1>
                             <h1 class="text-xl md:text-2xl "> $4.50</h1>
                         </div>
+                    </div>
+
+                    <div class="max-w-auto h-20 bg-green-800 text-lime-50 rounded-2xl m-2 mb-3 py-4 px-8 flex justify-between">
+                        <div>
+                            <div class="inline-flex gap-4">
+                                <h2 class="text-xl font-bold md:text-2xl py-2">Nov - Dec</h2>
+                            </div>
+                        </div>
+                        <div class="flex gap-2 md:gap-8 p-2">
+                            <h1 class="text-xl md:text-2xl "> =</h1>
+                            <h1 class="text-xl md:text-2xl "> $4.50</h1>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end px-4">
+                        <button id="manage_spending" class=" border-2 px-2 rounded-xl mb-2 text-white bg-lime-900 hover:bg-lime-50 hover:text-green-900 font-bold">
+                        Manage Spendings
+                        </button>
                     </div>
                 </article>
             </div>

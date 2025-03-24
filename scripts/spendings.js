@@ -112,6 +112,9 @@ getCurrentUserId().then(() => {
 });
 
 function setup() {
+    document.getElementById(`back-btn`).addEventListener("click", () => {
+        document.location.href = "mainspending.html"
+    })
     fetchAndRenderGroups();
 }
 document.addEventListener("DOMContentLoaded", setup);

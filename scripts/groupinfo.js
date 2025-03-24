@@ -1,5 +1,6 @@
 
-function getInfoFromAuth() {
+
+function getInfo() {
     firebase.auth().onAuthStateChanged(user => {
         if (user) {
             const trip_id = localStorage.getItem('trip_id');
@@ -9,7 +10,7 @@ function getInfoFromAuth() {
                     if (doc.exists) {
                         var name = doc.data().title;
                         var description = doc.data().description;
-                        var owner = doc.data().owner;
+                        let owner = doc.data().owner;
                         var category = doc.data().category;
                         var date = doc.data().deadline;
                         var members = doc.data().members;
@@ -17,11 +18,12 @@ function getInfoFromAuth() {
 
                         document.getElementById("group_name").innerText = name;
                         document.getElementById("group_description").innerText = description;
-                        document.getElementById("group_owner").innerText = owner;
                         document.getElementById("group_category").innerText = category;
                         document.getElementById("group_date").innerText = date;
                         document.getElementById("group_members").innerText = members;
                         document.getElementById("group_image").src = image;
+
+                        return owner
                     } else {
                         console.log("No such document!");
                     }
@@ -32,7 +34,31 @@ function getInfoFromAuth() {
         }
     });
 }
-getInfoFromAuth();
+getInfo();
+
+console.log(owner)
+
+
+function getUserName(owner) {
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            db.collection("users").doc(owner).get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        var owner_name = doc.data().name;
+                        
+                        document.getElementById("group_owner").innerText = owner_name;
+                    } else {
+                        console.log("No such document!");
+                    }
+                })
+        } else {
+            // No user is signed in.
+            console.log("No user is logged in");
+        }
+    });
+}
+getUserName(owner);
 
 
 function setup() {
