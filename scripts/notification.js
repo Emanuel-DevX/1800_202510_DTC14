@@ -1,5 +1,3 @@
-// notification.js
-
 // Function to get current user's ID safely
 function getCurrentUserId() {
     return new Promise((resolve, reject) => {
@@ -14,19 +12,19 @@ function getCurrentUserId() {
 // Function to create a notification card
 function createNotificationCard(notification) {
     const card = document.createElement('div');
-    card.className = 'bg-white shadow-md rounded-lg p-4 mb-4';
+    card.className = 'w-full shadow-lg bg-[#343434] text-lime-50 rounded-2xl mx-2 mb-3 p-4';
 
-    const title = document.createElement('h2');
-    title.className = 'text-xl font-semibold mb-2';
+    const title = document.createElement('h3');
+    title.className = 'font-bold text-lg';
     title.textContent = notification.title;
 
     const message = document.createElement('p');
-    message.className = 'text-gray-600 mb-2';
+    message.className = 'text-sm mt-2';
     message.textContent = notification.message;
 
     const time = document.createElement('p');
-    time.className = 'text-sm text-gray-500';
-    time.textContent = notification.time;
+    time.className = 'text-xs text-gray-400 mt-2';
+    time.textContent = new Date(notification.created_at.toDate()).toLocaleString();
 
     card.appendChild(title);
     card.appendChild(message);
@@ -53,37 +51,29 @@ async function fetchAndDisplayNotifications() {
 
         // Get the user's group memberships
         const userRef = db.collection("users").doc(userId);
-        userRef.get().then((userDoc) => {
-            const userGroups = userDoc.data()?.groups || [];
-            console.log("User Groups:", userGroups);
+        const userDoc = await userRef.get();
+        const userGroups = userDoc.data()?.groups || [];
 
-            if (userGroups.length === 0) {
-                console.log("User is not in any groups.");
-                notificationsContainer.innerHTML = "<p>You are not a member of any groups.  Join a group to see notifications.</p>";
-                return; // Exit if user is not in any groups
-            }
+        if (userGroups.length === 0) {
+            notificationsContainer.innerHTML = "<p class='text-center text-gray-500'>You are not a member of any groups. Join a group to see notifications.</p>";
+            return;
+        }
 
-            // Fetch notifications related to the user's groups
-            db.collection("notifications")
-                .where("groupId", "in", userGroups) // Assuming a 'groupId' field in notifications
-                .orderBy("timestamp", "desc") // Order by timestamp
-                .onSnapshot((snapshot) => {
-                    notificationsContainer.innerHTML = ""; // Clear existing notifications
-                    console.log("Snapshot size", snapshot.size)
-                    snapshot.forEach((doc) => {
-                        const notification = doc.data();
-                        console.log("Notification data", notification);
-                        const card = createNotificationCard(notification);
-                        notificationsContainer.appendChild(card);
-                    });
-                }, (error) => {
-                    console.error("Error fetching notifications: ", error);
-                    notificationsContainer.innerHTML = "<p>Error loading notifications.</p>";
+        // Fetch notifications related to the user's groups
+        db.collection("notifications")
+            .where("groupId", "in", userGroups)
+            .orderBy("created_at", "desc")
+            .onSnapshot((snapshot) => {
+                notificationsContainer.innerHTML = "";
+                snapshot.forEach((doc) => {
+                    const notification = doc.data();
+                    const card = createNotificationCard(notification);
+                    notificationsContainer.appendChild(card);
                 });
-        }).catch(error => {
-            console.error("Error getting user document:", error);
-            notificationsContainer.innerHTML = "<p>Error loading notifications.</p>";
-        });
+            }, (error) => {
+                console.error("Error fetching notifications: ", error);
+                notificationsContainer.innerHTML = "<p class='text-center text-red-500'>Error loading notifications.</p>";
+            });
 
     } catch (error) {
         console.error("Error in fetchAndDisplayNotifications:", error);
@@ -93,8 +83,12 @@ async function fetchAndDisplayNotifications() {
 // Function to set up the page
 function setup() {
     fetchAndDisplayNotifications();
+    document.getElementById('back-btn').addEventListener('click', () => {
+        window.location.href = 'home.html';
+    });
 }
 
+// Call the function after auth state is ready
 getCurrentUserId().then(() => {
     setup();
 }).catch(error => {
