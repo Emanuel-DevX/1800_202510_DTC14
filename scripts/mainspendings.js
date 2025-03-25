@@ -15,7 +15,7 @@ async function fetchSpendingData(userId) {
       spendingData[data.category] =
         (spendingData[data.category] || 0) + parseFloat(data.totalSpending);
     });
-    console.log(spendingData);
+    // console.log(spendingData);
 
     updateChart(spendingData);
   } catch (error) {
@@ -56,16 +56,16 @@ function updateChart(data) {
           label: "Spending",
           data: Object.values(data),
           backgroundColor: [
-            "#343434", // Dark gray for the first category
-            "#60A5FA", // Light blue
-            "#34D399", // Mint green
-            "#FBBF24", // Bright yellow
-            "#A78BFA", // Soft purple
-            "#F472B6", // Soft pink
-            "#6EE7B7", // Teal green
-            "#FCD34D", // Yellow-amber
-            "#FF6A00", // Vibrant orange
-            "#4ADE80", // Emerald green
+            "#2C2C2C", // Darker gray for the first category
+            "#3B82F6", // Darker blue
+            "#10B981", // Darker mint green
+            "#F59E0B", // Darker yellow
+            "#7C3AED", // Darker purple
+            "#D946EF", // Darker pink
+            "#34D399", // Darker teal green
+            "#F59E0B", // Darker yellow-amber
+            "#D15F00", // Darker orange
+            "#22C55E", // Darker emerald green
           ],
         },
       ],
@@ -93,7 +93,7 @@ async function fetchRecentSpendingData(userId) {
 
     querySnapshot.forEach((doc) => {
       const data = doc.data();
-      console.log("Document Data:", data); // Debugging
+    //   console.log("Document Data:", data); // Debugging
 
       if (!data.tripDate) return; // Skip if tripDate is missing
 
@@ -157,7 +157,7 @@ function updateMonthlySpendingHTML(data) {
     const periodText = document.createElement("h2");
     periodText.classList.add("text-xl", "font-bold", "md:text-2xl", "py-2");
     periodText.textContent = entry.period;
-    console.log(entry.period)
+    // console.log(entry.period)
     periodDiv.appendChild(periodText);
 
     const amountDiv = document.createElement("div");

@@ -111,9 +111,8 @@ async function addPost(postData) {
     const docRef = await postsRef.add({
       created_at: postData.created_at,
       description: postData.description,
-      group_id: postData.group_id,
       image: postData.image,
-      post_id: postData.post_id,
+      // post_id: postData.post_id,
       title: postData.title,
       owner: postData.owner,
       minPrice: postData.minPrice, // New field for price
@@ -123,6 +122,7 @@ async function addPost(postData) {
       items: postData.items,
     });
     addPostToUsers(docRef.id);
+    toggleGroupJoin(docRef.id)
 
     console.log("Document added with ID: ", docRef.id);
   } catch (e) {
@@ -136,7 +136,7 @@ async function addPostToUsers(groupId) {
     const groupRef = firebase.firestore().collection("Posts").doc(groupId);
 
     const docSnap = await groupRef.get();
-    console.log("Before update, members:", docSnap.data().members);
+    // console.log("Before update, members:", docSnap.data().members);
 
     if (!docSnap.exists) {
       console.error("Group document does not exist.");

@@ -209,7 +209,7 @@ function addItemRow(items) {
   removeBtn.textContent = "Remove";
   removeBtn.classList.add(
     "remove-btn",
-    "bg-red-500",
+    "bg-red-",
     "text-white",
     "px-2",
     "py-1",
