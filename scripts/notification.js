@@ -1,39 +1,3 @@
-// Function to get current user's ID safely
-function getCurrentUserId() {
-    return new Promise((resolve, reject) => {
-        firebase.auth().onAuthStateChanged(user => {
-            resolve(user?.uid);
-        }, error => {
-            reject(error);
-        });
-    });
-}
-
-// Function to create a notification card
-function createNotificationCard(notification) {
-    const card = document.createElement('div');
-    card.className = 'w-full shadow-lg bg-[#343434] text-lime-50 rounded-2xl mx-2 mb-3 p-4';
-
-    const title = document.createElement('h3');
-    title.className = 'font-bold text-lg';
-    title.textContent = notification.title;
-
-    const message = document.createElement('p');
-    message.className = 'text-sm mt-2';
-    message.textContent = notification.message;
-
-    const time = document.createElement('p');
-    time.className = 'text-xs text-gray-400 mt-2';
-    time.textContent = new Date(notification.created_at.toDate()).toLocaleString();
-
-    card.appendChild(title);
-    card.appendChild(message);
-    card.appendChild(time);
-
-    return card;
-}
-
-// Function to fetch and display notifications
 async function fetchAndDisplayNotifications() {
     try {
         const userId = await getCurrentUserId();
@@ -59,15 +23,16 @@ async function fetchAndDisplayNotifications() {
             return;
         }
 
-        // Fetch notifications related to the user's groups
-        db.collection("notifications")
-            .where("groupId", "in", userGroups)
+        // Fetch latest posts related to the user's groups
+        db.collection("Posts")
+            .where("group_id", "in", userGroups)
             .orderBy("created_at", "desc")
+            .limit(10) // Limit to 10 most recent posts
             .onSnapshot((snapshot) => {
                 notificationsContainer.innerHTML = "";
                 snapshot.forEach((doc) => {
-                    const notification = doc.data();
-                    const card = createNotificationCard(notification);
+                    const post = doc.data();
+                    const card = createNotificationCard(post);
                     notificationsContainer.appendChild(card);
                 });
             }, (error) => {
@@ -80,19 +45,30 @@ async function fetchAndDisplayNotifications() {
     }
 }
 
-// Function to set up the page
-function setup() {
-    fetchAndDisplayNotifications();
-    document.getElementById('back-btn').addEventListener('click', () => {
-        window.location.href = 'home.html';
-    });
+function createNotificationCard(post) {
+    const card = document.createElement('div');
+    card.className = 'bg-white shadow-md rounded-lg p-4 mb-4';
+
+    const title = document.createElement('h3');
+    title.className = 'font-bold text-lg';
+    title.textContent = post.title;
+
+    const description = document.createElement('p');
+    description.className = 'text-sm mt-2';
+    description.textContent = post.description;
+
+    const deadline = document.createElement('p');
+    deadline.className = 'text-xs text-gray-500 mt-2';
+    deadline.textContent = `Deadline: ${new Date(post.deadline).toLocaleDateString()}`;
+
+    const createdAt = document.createElement('p');
+    createdAt.className = 'text-xs text-gray-400 mt-1';
+    createdAt.textContent = `Created: ${new Date(post.created_at.toDate()).toLocaleString()}`;
+
+    card.appendChild(title);
+    card.appendChild(description);
+    card.appendChild(deadline);
+    card.appendChild(createdAt);
+
+    return card;
 }
-
-// Call the function after auth state is ready
-getCurrentUserId().then(() => {
-    setup();
-}).catch(error => {
-    console.error("Authentication error:", error);
-});
-
-document.addEventListener('DOMContentLoaded', setup);
