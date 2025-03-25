@@ -2,11 +2,15 @@ function insertNameFromFirestore() {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       console.log(user.uid);
+      localStorage.setItem("userIdLocal", globalUserId);
+
       const currentUser = db.collection("users").doc(user.uid);
       currentUser.get().then((userDoc) => {
         let userName = userDoc.data().name;
         console.log(userName);
-        document.getElementById("name-goes-here").innerHTML = userName;
+        namePlaceholder = document.getElementById("name-goes-here");
+
+        if (namePlaceholder) namePlaceholder.innerHTML = userName;
       });
     } else {
       console.log("No user is logged in.");
@@ -39,9 +43,7 @@ function logout() {
     auth
       .signOut()
       .then(() => {
-      
-                console.log("User logged out successfully");
-
+        console.log("User logged out successfully");
       })
       .catch((error) => {
         console.error("Error logging out: ", error);
