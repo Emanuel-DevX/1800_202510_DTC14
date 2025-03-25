@@ -89,7 +89,7 @@ async function fetchAndRenderGroups() {
                             const card = createGroupCard(groups, doc.id);
                             cardsSection.prepend(card);
                             document.getElementById(doc.id).addEventListener("click", () => {
-                                localStorage.setItem('trip_id', doc.id);
+                                localStorage.setItem('trip_id_local', doc.id);
                                 document.location.href = "spendingsinfo.html"
                             })
                         }
