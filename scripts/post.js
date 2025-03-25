@@ -4,6 +4,7 @@ function initializeUserId() {
     if (user) {
       globalUserId = user.uid; // Set the global user ID
       console.log("User ID initialized:", globalUserId);
+      localStorage.setItem("userIdLocal", globalUserId);
     } else {
       globalUserId = null; // Reset if no user is logged in
       console.log("No user is logged in.");
