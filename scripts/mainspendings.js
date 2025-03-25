@@ -27,7 +27,6 @@ async function fetchSpendingData(userId) {
 
 // Update Chart.js with fetched data
 
-
 chartInstance = null;
 function updateChart(data) {
   const ctx = document.getElementById("spendingChart").getContext("2d");
@@ -43,13 +42,12 @@ function updateChart(data) {
     };
   }
 
-
   if (chartInstance) {
     chartInstance.destroy();
   }
 
   // Create a new chart
-  chartInstance =  new Chart(ctx, {
+  chartInstance = new Chart(ctx, {
     type: "pie",
     data: {
       labels: Object.keys(data),
@@ -77,8 +75,108 @@ function updateChart(data) {
 
 // Fetch data on load
 
+async function fetchRecentSpendingData(userId) {
+  const recentSpendingData = {};
+
+  try {
+    // Get the date range for the last 3 months
+    const currentDate = new Date();
+    const threeMonthsAgo = new Date();
+    threeMonthsAgo.setMonth(currentDate.getMonth() - 3);
+
+    // Firestore query
+    const querySnapshot = await db
+      .collection("spending")
+      .where("userId", "==", userId)
+      .where("timestamp", ">=", threeMonthsAgo)
+      .get();
+
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      console.log("Document Data:", data); // Debugging
+
+      if (!data.tripDate) return; // Skip if tripDate is missing
+
+      const spendingDate = new Date(data.tripDate);
+      if (isNaN(spendingDate)) return; // Skip invalid dates
+
+      const period = spendingDate.toLocaleString("default", {
+        month: "long",
+        year: "numeric",
+      });
+
+      // Aggregate spending by month
+      if (!recentSpendingData[period]) {
+        recentSpendingData[period] = 0;
+      }
+      recentSpendingData[period] += parseFloat(data.totalSpending) || 0;
+    });
+
+    // Convert aggregated data into an array
+ const formattedSpendingData = Object.keys(recentSpendingData)
+   .map((period) => ({
+     period,
+     amount: recentSpendingData[period],
+     date: new Date(period), // Convert period to Date object for sorting
+   }))
+   .sort((a, b) => b.date - a.date); // Sort by most recent date first
+
+
+    updateMonthlySpendingHTML(formattedSpendingData);
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+}
+
+
+// Function to update the HTML with the spending data
+function updateMonthlySpendingHTML(data) {
+  const spendingDiv = document.getElementById("monthly-spendings");
+
+  // Clear any existing content
+  spendingDiv.innerHTML = "";
+
+  // Loop through the data and populate the HTML
+  data.forEach((entry) => {
+    const div = document.createElement("div");
+    div.classList.add(
+      "max-w-auto",
+      "bg-[#343434]",
+      "text-lime-50",
+      "rounded-lg",
+      "m-2",
+      "mb-3",
+      "py-2",
+      "px-8",
+      "flex",
+      "justify-between"
+    );
+
+    const periodDiv = document.createElement("div");
+    periodDiv.classList.add("inline-flex", "gap-4");
+    const periodText = document.createElement("h2");
+    periodText.classList.add("text-xl", "font-bold", "md:text-2xl", "py-2");
+    periodText.textContent = entry.period;
+    console.log(entry.period)
+    periodDiv.appendChild(periodText);
+
+    const amountDiv = document.createElement("div");
+    amountDiv.classList.add("flex", "gap-2", "md:gap-8", "p-2");
+    const amountText = document.createElement("h1");
+    amountText.classList.add("text-xl", "md:text-2xl");
+    amountText.textContent = `$${entry.amount.toFixed(2)}`;
+    amountDiv.appendChild(amountText);
+
+    div.appendChild(periodDiv);
+    div.appendChild(amountDiv);
+
+    spendingDiv.appendChild(div);
+  });
+}
+
 function setup() {
   fetchSpendingData(userId);
+  fetchRecentSpendingData(userId);
 
   document.getElementById(`manage_spending`).addEventListener("click", () => {
     document.location.href = "spendings.html";

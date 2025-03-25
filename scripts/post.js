@@ -190,9 +190,7 @@ function submitForm() {
       post = {
         created_at: firebase.firestore.FieldValue.serverTimestamp(),
         description: description,
-        group_id: "userName",
         image: getPostImage(category),
-        post_id: "post123",
         title: title,
         owner: globalUserId,
         minPrice: price, // New price field

@@ -3,7 +3,7 @@ function createGroupCard(groups, docid) {
   const card = document.createElement("div");
   card.id = docid;
   card.className =
-    "w-full  inline-flex gap-6 shadow-lg bg-[#343434] text-lime-50 rounded-2xl mx-2 mb-3 p-4";
+    "w-full  inline-flex gap-6 shadow-lg bg-[#343434] text-lime-50 rounded-2xl mx-2 mb-3 px-4 py-3";
 
   // Add the image section
   const imageDiv = document.createElement("div");
@@ -19,7 +19,7 @@ function createGroupCard(groups, docid) {
   place.className = "flex justify-between w-full items-center";
   const groupInfoDiv = document.createElement("div");
   const title = document.createElement("h3");
-  title.className = "font-bold text-xl ";
+  title.className = "font-bold text-lg ";
   title.textContent = groups.title;
   groupInfoDiv.appendChild(title);
 

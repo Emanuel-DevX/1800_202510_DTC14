@@ -3,9 +3,10 @@ function profileSetting() {
   const profileMenu = document.getElementById("profile-menu");
 
   // Toggle menu visibility
-  profileIcon.addEventListener("click", function () {
+  if (profileIcon)
+{    profileIcon.addEventListener("click", function () {
     profileMenu.classList.toggle("hidden");
-  });
+  });}
 
   // Close the menu if clicked outside
   window.addEventListener("click", function (event) {
