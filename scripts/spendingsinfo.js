@@ -8,6 +8,9 @@ function getInfoFromAuth() {
                 .then((doc) => {
                     if (doc.exists) {
                         var name = doc.data().title;
+                        var items = doc.data().items;
+                        var category = doc.data().category;
+                        var deadline = doc.data().deadline;
 
                         document.getElementById("group_name").innerText = name;
                     } else {
@@ -20,9 +23,10 @@ function getInfoFromAuth() {
         }
     });
 }
-getInfoFromAuth();
 
 function setup() {
+    getInfoFromAuth();
+
     document.getElementById(`back-btn`).addEventListener("click", () => {
         document.location.href = "spendings.html"
     })
