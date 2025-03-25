@@ -25,9 +25,8 @@
     <link rel="stylesheet" href="styles/style.css" />
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     <script src="scripts/firebaseAPI_DTC14.js"></script>
-    <script src="scripts/home.js" defer></script>
-    <script src="scripts/spendings.js" defer></script>
     <script src="scripts/mainspendings.js" defer></script>
+    <script src="scripts/utils.js" defer></script>
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
@@ -56,13 +55,14 @@
             </div>
           </div>
 
+      
           <div class="profile flex items-center">
             <h1 class="user-name font-bold text-lime-50 mx-2">
               <span id="name-goes-here"></span>
             </h1>
             <img
               id="profile-icon"
-              class="w-12 cursor-pointer mr-0 md:mr-6 rounded-full"
+              class="w-12 mr-0 md:mr-6 cursor-pointer rounded-full"
               src="images/profile.jpg"
               alt=""
             />
