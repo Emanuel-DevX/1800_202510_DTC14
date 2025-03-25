@@ -233,102 +233,29 @@
 
         <div class="h-auto w-11/12 mx-4 flex flex-col bg-white rounded-2xl">
          
-          <div class="w-full max-w-lg p-6 bg-white shadow-lg rounded-lg">
-            <h2 class="text-xl font-semibold text-gray-700 text-center">
+          <div class="w-full max-w-lg px-6 bg-white  rounded-lg">
+            <h2 class="text-2xl font-semibold text-gray-700 text-center">
               Spending Breakdown
             </h2>
             <canvas id="spendingChart" class="mt-4"></canvas>
           </div>
 
 
-          <h3 class="text-green-900 rounded-xl text-xl mb-2 py-1 pl-6">
+          <h3 class="text-green-900 rounded-xl text-xl mx-auto mt-5 py-1 ">
             Monthly Spending Summary
           </h3>
+          <div id="monthly-spendings"></div>
 
-          <div
-            class="max-w-auto bg-[#343434] text-lime-50 rounded-lg m-2 mb-3 py-2 px-8 flex justify-between"
-          >
-            <div>
-              <div class="inline-flex gap-4">
-                <h2 class="text-xl font-bold md:text-2xl py-2">Jan - Feb</h2>
-              </div>
-            </div>
-            <div class="flex gap-2 md:gap-8 p-2">
-              <h1 class="text-xl md:text-2xl">=</h1>
-              <h1 class="text-xl md:text-2xl">$4.50</h1>
-            </div>
-          </div>
+        
 
-          <div
-            class="max-w-auto bg-[#343434] text-lime-50 rounded-lg m-2 mb-3 py-2 px-8 flex justify-between"
-          >
-            <div>
-              <div class="inline-flex gap-4">
-                <h2 class="text-xl font-bold md:text-2xl py-2">Mar - Apr</h2>
-              </div>
-            </div>
-            <div class="flex gap-2 md:gap-8 p-2">
-              <h1 class="text-xl md:text-2xl">$7.50</h1>
-            </div>
-          </div>
+         
 
-          <div
-            class="max-w-auto bg-[#343434] text-lime-50 rounded-lg m-2 mb-3 py-2 px-8 flex justify-between"
-          >
-            <div>
-              <div class="inline-flex gap-4">
-                <h2 class="text-xl font-bold md:text-2xl py-2">May - June</h2>
-              </div>
-            </div>
-            <div class="flex gap-2 md:gap-8 p-2">
-              <h1 class="text-xl md:text-2xl">$3.50</h1>
-            </div>
-          </div>
-
-          <div
-            class="max-w-auto bg-[#343434] text-lime-50 rounded-lg m-2 mb-3 py-2 px-8 flex justify-between"
-          >
-            <div>
-              <div class="inline-flex gap-4">
-                <h2 class="text-xl font-bold md:text-2xl py-2">July - Aug</h2>
-              </div>
-            </div>
-            <div class="flex gap-2 md:gap-8 p-2">
-              <h1 class="text-xl md:text-2xl">$6.50</h1>
-            </div>
-          </div>
-
-          <div
-            class="max-w-auto bg-[#343434] text-lime-50 rounded-lg m-2 mb-3 py-2 px-8 flex justify-between"
-          >
-            <div>
-              <div class="inline-flex gap-4">
-                <h2 class="text-xl font-bold md:text-2xl py-2">Sept - Oct</h2>
-              </div>
-            </div>
-            <div class="flex gap-2 md:gap-8 p-2">
-              <h1 class="text-xl md:text-2xl">$4.50</h1>
-            </div>
-          </div>
-
-          <div
-            class="max-w-auto bg-[#343434] text-lime-50 rounded-lg m-2 mb-3 py-2 px-8 flex justify-between"
-          >
-            <div>
-              <div class="inline-flex gap-4">
-                <h2 class="text-xl font-bold md:text-2xl py-2">Nov - Dec</h2>
-              </div>
-            </div>
-            <div class="flex gap-2 md:gap-8 p-2">
-              <h1 class="text-xl md:text-2xl">$4.50</h1>
-            </div>
-          </div>
         </div>
       </main>
       <div class="fixed right-0 bottom-25 flex justify-end px-4">
         <button
           id="manage_spending"
-          class="border-2 px-1 py-2 rounded-xl mb-2 text-[#343434] bg-white hover:bg-lime-50 hover:text-green-900 font-bold"
+          class="border-4 shadow-lg px-1 py-2 rounded-xl mb-2 text-[#343434] bg-white hover:bg-lime-50 hover:text-green-900 font-bold"
         >
           🖊️ Manage Spendings
         </button>
