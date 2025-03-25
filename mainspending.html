@@ -1,287 +1,429 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Community Cart</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
-    <link rel="icon" href="/images/favicon_io/android-chrome-192x192.png" type="image/x-icon" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css"
+    />
+    <link
+      rel="icon"
+      href="/images/favicon_io/android-chrome-192x192.png"
+      type="image/x-icon"
+    />
     <link rel="stylesheet" href="styles/style.css" />
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     <script src="scripts/firebaseAPI_DTC14.js"></script>
     <script src="scripts/home.js" defer></script>
     <script src="scripts/spendings.js" defer></script>
     <script src="scripts/mainspendings.js" defer></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+  </head>
 
-<body class="w-screen h-full m-0 p-0 overflow-y-scroll overflow-x-hidden">
+  <body class="w-screen h-full m-0 p-0 overflow-y-scroll overflow-x-hidden">
     <div class="layout md:max-w-screen-2xl w-full max-w-full pb-32 mx-auto">
-        <header class="max-w-full md:sticky md:top-0 md:z-40 bg-[#323232] max-h-16 rounded-b-lg mb-6">
-            <div class="logo-profile h-16 flex justify-between px-3">
-                <div class="logo-menu flex">
-                    <div class="logo w-20 mt-1 h-20 border-5 border-white rounded-full  bg-center bg-cover bg-full"
-                        style="
+      <header
+        class="max-w-full md:sticky md:top-0 md:z-40 bg-[#323232] max-h-16 rounded-b-lg mb-6"
+      >
+        <div class="logo-profile h-16 flex justify-between px-3">
+          <div class="logo-menu flex">
+            <div
+              class="logo w-20 mt-1 h-20 border-5 border-white rounded-full bg-center bg-cover bg-full"
+              style="
                 background-image: url(/images/community-cart--high-resolution-logo.png);
-              "></div>
-                    <div class="self-center mx-4 font-bold text-lime-50 hidden md:block">
-                        <h1><span class="font-extrabold">CommunityCart</span> / Spendings</h1>
-                    </div>
-                </div>
-
-                <div class="profile flex items-center">
-                    <h1 class="user-name font-bold text-lime-50 mx-2">
-                        <span id="name-goes-here"></span>
-                    </h1>
-                    <img id="profile-icon" class="w-12 cursor-pointer mr-0 md:mr-6 rounded-full" src="images/profile.jpg" alt="" />
-                    <div id="profile-menu"
-                        class="hidden z-50 absolute top-16 right-2 bg-[#323232] text-lime-50 p-3 rounded-lg shadow-md w-48">
-                        <ul class="menu-options space-y-2">
-                            <li>
-                                <a href="/profile.html" class="block px-4 py-2 hover:bg-green-700">Profile Settings</a>
-                            </li>
-                            <li>
-                                <a href="/contact.html" class="block px-4 py-2 hover:bg-green-700">Contact Us</a>
-                            </li>
-                            <li>
-                                <a href="/privacy.html" class="block px-4 py-2 hover:bg-green-700">Privacy policy</a>
-                            </li>
-                            <li>
-                                <a id="logout-btn" href="/index.html" class="block px-4 py-2 hover:bg-green-700">Logout</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+              "
+            ></div>
+            <div
+              class="self-center mx-4 font-bold text-lime-50 hidden md:block"
+            >
+              <h1>
+                <span class="font-extrabold">CommunityCart</span> / Spendings
+              </h1>
             </div>
-        </header>
-        <main class="gap-2 md:gap-0 flex-row md:flex max-w md:full justify-between">
-            <nav class="hidden group hover:w-48 w-14 h-screen md:flex flex-col justify-center ml-2">
-                <div class="nav-buttons border-[4px] border-green-700 rounded-full group-hover:rounded-2xl">
-                    <div class="home-button mt-10 h-12 cursor-pointer">
-                        <div class="items-end flex p-1 peer">
-                            <svg class="text-green-900 font-extrabold min-w-9 w-9 mr-2"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819" />
-                            </svg>
-                            <a href="home.html" class="hidden group-hover:block text-xl font-extrabold text-green-900">
-                                Home</a>
-                        </div>
-                        <div class="ml-4 peer-hover:border-5 rounded-full w-2 h-2 border-green-900"></div>
-                    </div>
+          </div>
 
-                    <div class="spendings-button mt-8 h-12 p-1 cursor-pointer">
-                        <div class="peer items-end flex">
-                            <svg class="text-green-900 font-extrabold min-w-9 w-9 mr-2"
-                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5">
-                                <path
-                                    d="M16.007 7.54a5.965 5.965 0 0 0 -4.008 -1.54a6 6 0 0 0 -5.992 6c0 3.314 2.682 6 5.992 6a5.965 5.965 0 0 0 4 -1.536">
-                                </path>
-                                <path d="M12 20v-2"></path>
-                                <path d="M12 6v-2"></path>
-                            </svg>
-                            <a href="mainspending.html"
-                                class="hidden group-hover:block text-xl font-extrabold text-green-900">
-                                Spendings</a>
-                        </div>
-                        <div class="ml-[13px] peer-hover:border-5 rounded-full w-2 h-2 border-green-900"></div>
-                    </div>
-
-                    <div class="groups-button my-10 h-12 p-1 cursor-pointer">
-                        <div class="peer items-end flex">
-                            <svg class="text-green-900 font-extrabold min-w-9 w-9 mr-2"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
-                            </svg>
-                            <a href="groups.html"
-                                class="hidden group-hover:block text-xl font-extrabold text-green-900">
-                                Shop Trips </a>
-                        </div>
-                        <div class="ml-[13px] peer-hover:border-5 rounded-full w-2 h-2 border-green-900"></div>
-                    </div>
-
-                    <div class="notification-button my-10 h-12 p-1 cursor-pointer">
-                        <div class="peer items-end flex">
-                            <svg class="text-green-900 font-extrabold min-w-9 w-9 mr-2"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
-                            </svg>
-
-                            <a href="notification.html"
-                                class="hidden group-hover:block text-xl font-extrabold text-green-900">
-                                Notifications </a>
-                        </div>
-                        <div class="ml-[13px] peer-hover:border-5 rounded-full w-2 h-2 border-green-900"></div>
-                    </div>
-                </div>
-            </nav>
-
-            <div class="h-auto shadow w-11/12 mx-4 flex flex-col bg-[#323232] rounded-2xl">
-                <h2 class="font-bold text-white bg-green-900 max-w-44 rounded-xl text-xl mb-2 py-1 pl-6 ">My Spendings</h2>
-                <article>
-                    <header class="max-w-auto h-28 bg-green-900 text-lime-50 overflow-hidden  whitespace-nowrap rounded-2xl m-2 mb-3 py-10 px-8 ">
-                        <div class="flex justify-between">
-                            <p class="font-bold text-2xl md:text-4xl">TOTAL SPENDING :</p>
-                            <p class="font-bold text-2xl md:text-4xl"></p>
-                        </div>
-                    </header>
-
-                    <div
-                        class="max-w-auto h-20 bg-green-800 text-lime-50 rounded-2xl m-2 mb-3 py-4 px-8 flex justify-between">
-                        <div>
-                            <div class="inline-flex gap-4">
-                                <h2 class="text-xl font-bold md:text-2xl py-2">Jan - Feb</h2>
-                            </div>
-                        </div>
-                        <div class="flex gap-2 md:gap-8 p-2 ">
-                            <h1 class="text-xl md:text-2xl "> =</h1>
-                            <h1 class="text-xl md:text-2xl "> $4.50</h1>
-                        </div>
-                    </div>
-
-                    <div
-                        class="max-w-auto h-20 bg-green-800 text-lime-50 rounded-2xl m-2 mb-3 py-4 px-8 flex justify-between">
-                        <div>
-                            <div class="inline-flex gap-4">
-                                <h2 class="text-xl font-bold md:text-2xl py-2">Mar - Apr</h2>
-                            </div>
-                        </div>
-                        <div class="flex gap-2 md:gap-8 p-2 ">
-                            <h1 class="text-xl md:text-2xl "> =</h1>
-                            <h1 class="text-xl md:text-2xl "> $7.50</h1>
-                        </div>
-                    </div>
-
-                    <div
-                        class="max-w-auto h-20 bg-green-800 text-lime-50 rounded-2xl m-2 mb-3 py-4 px-8 flex justify-between">
-                        <div>
-                            <div class="inline-flex gap-4">
-                                <h2 class="text-xl font-bold md:text-2xl py-2">May - June</h2>
-                            </div>
-                        </div>
-                        <div class="flex gap-2 md:gap-8 p-2 ">
-                            <h1 class="text-xl md:text-2xl "> =</h1>
-                            <h1 class="text-xl md:text-2xl "> $3.50</h1>
-                        </div>
-                    </div>
-
-                    <div
-                        class="max-w-auto h-20 bg-green-800 text-lime-50 rounded-2xl m-2 mb-3 py-4 px-8 flex justify-between">
-                        <div>
-                            <div class="inline-flex gap-4">
-                                <h2 class="text-xl font-bold md:text-2xl py-2">July - Aug</h2>
-                            </div>
-                        </div>
-                        <div class="flex gap-2 md:gap-8 p-2 ">
-                            <h1 class="text-xl md:text-2xl "> =</h1>
-                            <h1 class="text-xl md:text-2xl "> $6.50</h1>
-                        </div>
-                    </div>
-
-                    <div
-                        class="max-w-auto h-20 bg-green-800 text-lime-50 rounded-2xl m-2 mb-3 py-4 px-8 flex justify-between">
-                        <div>
-                            <div class="inline-flex gap-4">
-                                <h2 class="text-xl font-bold md:text-2xl py-2">Sept - Oct</h2>
-                            </div>
-                        </div>
-                        <div class="flex gap-2 md:gap-8 p-2">
-                            <h1 class="text-xl md:text-2xl "> =</h1>
-                            <h1 class="text-xl md:text-2xl "> $4.50</h1>
-                        </div>
-                    </div>
-
-                    <div class="max-w-auto h-20 bg-green-800 text-lime-50 rounded-2xl m-2 mb-3 py-4 px-8 flex justify-between">
-                        <div>
-                            <div class="inline-flex gap-4">
-                                <h2 class="text-xl font-bold md:text-2xl py-2">Nov - Dec</h2>
-                            </div>
-                        </div>
-                        <div class="flex gap-2 md:gap-8 p-2">
-                            <h1 class="text-xl md:text-2xl "> =</h1>
-                            <h1 class="text-xl md:text-2xl "> $4.50</h1>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end px-4">
-                        <button id="manage_spending" class=" border-2 px-2 rounded-xl mb-2 text-white bg-lime-900 hover:bg-lime-50 hover:text-green-900 font-bold">
-                        Manage Spendings
-                        </button>
-                    </div>
-                </article>
+          <div class="profile flex items-center">
+            <h1 class="user-name font-bold text-lime-50 mx-2">
+              <span id="name-goes-here"></span>
+            </h1>
+            <img
+              id="profile-icon"
+              class="w-12 cursor-pointer mr-0 md:mr-6 rounded-full"
+              src="images/profile.jpg"
+              alt=""
+            />
+            <div
+              id="profile-menu"
+              class="hidden z-50 absolute top-16 right-2 bg-[#323232] text-lime-50 p-3 rounded-lg shadow-md w-48"
+            >
+              <ul class="menu-options space-y-2">
+                <li>
+                  <a
+                    href="/profile.html"
+                    class="block px-4 py-2 hover:bg-green-700"
+                    >Profile Settings</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="/contact.html"
+                    class="block px-4 py-2 hover:bg-green-700"
+                    >Contact Us</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="/privacy.html"
+                    class="block px-4 py-2 hover:bg-green-700"
+                    >Privacy policy</a
+                  >
+                </li>
+                <li>
+                  <a
+                    id="logout-btn"
+                    href="/index.html"
+                    class="block px-4 py-2 hover:bg-green-700"
+                    >Logout</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <main
+        class="gap-2 md:gap-0 flex-row md:flex max-w md:full justify-between"
+      >
+        <nav
+          class="hidden group hover:w-48 w-14 h-screen md:flex flex-col justify-center ml-2"
+        >
+          <div
+            class="nav-buttons border-[4px] border-green-700 rounded-full group-hover:rounded-2xl"
+          >
+            <div class="home-button mt-10 h-12 cursor-pointer">
+              <div class="items-end flex p-1 peer">
+                <svg
+                  class="text-green-900 font-extrabold min-w-9 w-9 mr-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819"
+                  />
+                </svg>
+                <a
+                  href="home.html"
+                  class="hidden group-hover:block text-xl font-extrabold text-green-900"
+                >
+                  Home</a
+                >
+              </div>
+              <div
+                class="ml-4 peer-hover:border-5 rounded-full w-2 h-2 border-green-900"
+              ></div>
             </div>
 
+            <div class="spendings-button mt-8 h-12 p-1 cursor-pointer">
+              <div class="peer items-end flex">
+                <svg
+                  class="text-green-900 font-extrabold min-w-9 w-9 mr-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2.5"
+                >
+                  <path
+                    d="M16.007 7.54a5.965 5.965 0 0 0 -4.008 -1.54a6 6 0 0 0 -5.992 6c0 3.314 2.682 6 5.992 6a5.965 5.965 0 0 0 4 -1.536"
+                  ></path>
+                  <path d="M12 20v-2"></path>
+                  <path d="M12 6v-2"></path>
+                </svg>
+                <a
+                  href="mainspending.html"
+                  class="hidden group-hover:block text-xl font-extrabold text-green-900"
+                >
+                  Spendings</a
+                >
+              </div>
+              <div
+                class="ml-[13px] peer-hover:border-5 rounded-full w-2 h-2 border-green-900"
+              ></div>
+            </div>
 
-        </main>
-        <footer>
-            <nav class="md:hidden min-h-16 fixed bottom-0 w-full flex justify-evenly py-2 bg-[#323232] z-50">
-                <!-- Home Button -->
-                <a href="home.html" class="w-1/4">
-                    <div class="flex flex-col items-center justify-center">
-                        <svg class="text-white font-extrabold min-w-9 w-9" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819" />
-                        </svg>
-                        <div class="text-sm  text-white">Home</div>
-                    </div>
+            <div class="groups-button my-10 h-12 p-1 cursor-pointer">
+              <div class="peer items-end flex">
+                <svg
+                  class="text-green-900 font-extrabold min-w-9 w-9 mr-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"
+                  />
+                </svg>
+                <a
+                  href="groups.html"
+                  class="hidden group-hover:block text-xl font-extrabold text-green-900"
+                >
+                  Shop Trips
                 </a>
+              </div>
+              <div
+                class="ml-[13px] peer-hover:border-5 rounded-full w-2 h-2 border-green-900"
+              ></div>
+            </div>
 
-                <!-- Spendings Button -->
-                <a href="mainspending.html" class="w-1/4">
-                    <div class="flex flex-col items-center justify-center">
-                        <svg class="text-white font-extrabold min-w-9 w-9" xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"
-                            stroke-linejoin="round" stroke-width="2.5">
-                            <path
-                                d="M16.007 7.54a5.965 5.965 0 0 0 -4.008 -1.54a6 6 0 0 0 -5.992 6c0 3.314 2.682 6 5.992 6a5.965 5.965 0 0 0 4 -1.536">
-                            </path>
-                            <path d="M12 20v-2"></path>
-                            <path d="M12 6v-2"></path>
-                        </svg>
-                        <div class="text-sm  text-yellow-300">Spendings</div>
-                    </div>
-                </a>
+            <div class="notification-button my-10 h-12 p-1 cursor-pointer">
+              <div class="peer items-end flex">
+                <svg
+                  class="text-green-900 font-extrabold min-w-9 w-9 mr-2"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
+                  />
+                </svg>
 
-                <!-- My Groups Button -->
-                <a href="groups.html" class="w-1/4">
-                    <div class="flex items-center justify-center flex-col">
-                        <svg class="text-white font-extrabold min-w-9 w-9" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
-                        </svg>
-                        <span class="text-sm text-white">Trips</span>
-                    </div>
+                <a
+                  href="notification.html"
+                  class="hidden group-hover:block text-xl font-extrabold text-green-900"
+                >
+                  Notifications
                 </a>
+              </div>
+              <div
+                class="ml-[13px] peer-hover:border-5 rounded-full w-2 h-2 border-green-900"
+              ></div>
+            </div>
+          </div>
+        </nav>
 
-                <!-- Notifications Button -->
-                <a href="notification.html" class="w-1/4">
-                    <div class="flex flex-col items-center justify-center">
-                        <svg class="text-white font-extrabold min-w-9 w-9" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
-                        </svg>
-                        <div class="text-sm  text-white">Notifications</div>
-                    </div>
-                </a>
-            </nav>
-        </footer>
+        <div class="h-auto w-11/12 mx-4 flex flex-col bg-white rounded-2xl">
+         
+          <div class="w-full max-w-lg p-6 bg-white shadow-lg rounded-lg">
+            <h2 class="text-xl font-semibold text-gray-700 text-center">
+              Spending Breakdown
+            </h2>
+            <canvas id="spendingChart" class="mt-4"></canvas>
+          </div>
+
+
+          <h3 class="text-green-900 rounded-xl text-xl mb-2 py-1 pl-6">
+            Monthly Spending Summary
+          </h3>
+
+          <div
+            class="max-w-auto bg-[#343434] text-lime-50 rounded-lg m-2 mb-3 py-2 px-8 flex justify-between"
+          >
+            <div>
+              <div class="inline-flex gap-4">
+                <h2 class="text-xl font-bold md:text-2xl py-2">Jan - Feb</h2>
+              </div>
+            </div>
+            <div class="flex gap-2 md:gap-8 p-2">
+              <h1 class="text-xl md:text-2xl">=</h1>
+              <h1 class="text-xl md:text-2xl">$4.50</h1>
+            </div>
+          </div>
+
+          <div
+            class="max-w-auto bg-[#343434] text-lime-50 rounded-lg m-2 mb-3 py-2 px-8 flex justify-between"
+          >
+            <div>
+              <div class="inline-flex gap-4">
+                <h2 class="text-xl font-bold md:text-2xl py-2">Mar - Apr</h2>
+              </div>
+            </div>
+            <div class="flex gap-2 md:gap-8 p-2">
+              <h1 class="text-xl md:text-2xl">$7.50</h1>
+            </div>
+          </div>
+
+          <div
+            class="max-w-auto bg-[#343434] text-lime-50 rounded-lg m-2 mb-3 py-2 px-8 flex justify-between"
+          >
+            <div>
+              <div class="inline-flex gap-4">
+                <h2 class="text-xl font-bold md:text-2xl py-2">May - June</h2>
+              </div>
+            </div>
+            <div class="flex gap-2 md:gap-8 p-2">
+              <h1 class="text-xl md:text-2xl">$3.50</h1>
+            </div>
+          </div>
+
+          <div
+            class="max-w-auto bg-[#343434] text-lime-50 rounded-lg m-2 mb-3 py-2 px-8 flex justify-between"
+          >
+            <div>
+              <div class="inline-flex gap-4">
+                <h2 class="text-xl font-bold md:text-2xl py-2">July - Aug</h2>
+              </div>
+            </div>
+            <div class="flex gap-2 md:gap-8 p-2">
+              <h1 class="text-xl md:text-2xl">$6.50</h1>
+            </div>
+          </div>
+
+          <div
+            class="max-w-auto bg-[#343434] text-lime-50 rounded-lg m-2 mb-3 py-2 px-8 flex justify-between"
+          >
+            <div>
+              <div class="inline-flex gap-4">
+                <h2 class="text-xl font-bold md:text-2xl py-2">Sept - Oct</h2>
+              </div>
+            </div>
+            <div class="flex gap-2 md:gap-8 p-2">
+              <h1 class="text-xl md:text-2xl">$4.50</h1>
+            </div>
+          </div>
+
+          <div
+            class="max-w-auto bg-[#343434] text-lime-50 rounded-lg m-2 mb-3 py-2 px-8 flex justify-between"
+          >
+            <div>
+              <div class="inline-flex gap-4">
+                <h2 class="text-xl font-bold md:text-2xl py-2">Nov - Dec</h2>
+              </div>
+            </div>
+            <div class="flex gap-2 md:gap-8 p-2">
+              <h1 class="text-xl md:text-2xl">$4.50</h1>
+            </div>
+          </div>
+        </div>
+      </main>
+      <div class="fixed right-0 bottom-25 flex justify-end px-4">
+        <button
+          id="manage_spending"
+          class="border-2 px-1 py-2 rounded-xl mb-2 text-[#343434] bg-white hover:bg-lime-50 hover:text-green-900 font-bold"
+        >
+          🖊️ Manage Spendings
+        </button>
+      </div>
+      <footer>
+        <nav
+          class="md:hidden min-h-16 fixed bottom-0 w-full flex justify-evenly py-2 bg-[#323232] z-50"
+        >
+          <!-- Home Button -->
+          <a href="home.html" class="w-1/4">
+            <div class="flex flex-col items-center justify-center">
+              <svg
+                class="text-white font-extrabold min-w-9 w-9"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205 3 1m1.5.5-1.5-.5M6.75 7.364V3h-3v18m3-13.636 10.5-3.819"
+                />
+              </svg>
+              <div class="text-sm text-white">Home</div>
+            </div>
+          </a>
+
+          <!-- Spendings Button -->
+          <a href="mainspending.html" class="w-1/4">
+            <div class="flex flex-col items-center justify-center">
+              <svg
+                class="text-white font-extrabold min-w-9 w-9"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2.5"
+              >
+                <path
+                  d="M16.007 7.54a5.965 5.965 0 0 0 -4.008 -1.54a6 6 0 0 0 -5.992 6c0 3.314 2.682 6 5.992 6a5.965 5.965 0 0 0 4 -1.536"
+                ></path>
+                <path d="M12 20v-2"></path>
+                <path d="M12 6v-2"></path>
+              </svg>
+              <div class="text-sm text-yellow-300">Spendings</div>
+            </div>
+          </a>
+
+          <!-- My Groups Button -->
+          <a href="groups.html" class="w-1/4">
+            <div class="flex items-center justify-center flex-col">
+              <svg
+                class="text-white font-extrabold min-w-9 w-9"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z"
+                />
+              </svg>
+              <span class="text-sm text-white">Trips</span>
+            </div>
+          </a>
+
+          <!-- Notifications Button -->
+          <a href="notification.html" class="w-1/4">
+            <div class="flex flex-col items-center justify-center">
+              <svg
+                class="text-white font-extrabold min-w-9 w-9"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5"
+                />
+              </svg>
+              <div class="text-sm text-white">Notifications</div>
+            </div>
+          </a>
+        </nav>
+      </footer>
     </div>
-</body>
-
+  </body>
 </html>
