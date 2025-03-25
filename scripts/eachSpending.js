@@ -4,7 +4,7 @@ let tripItems = [];
 let tripCategory = "";
 let existingPurchaseDocId = null;
 let existingPurchases = [];
-
+let tripDate = "";
 function getInfoFromAuth() {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -19,6 +19,7 @@ function getInfoFromAuth() {
             const name = doc.data().title;
             const items = doc.data().items;
             const category = doc.data().category;
+            tripDate = doc.data().deadline;
 
             // Store trip details
             tripItems = items;
@@ -72,7 +73,6 @@ function checkExistingPurchase(userId, tripId) {
       console.error("Error checking existing purchases: ", error);
     });
 }
-
 
 function deleteItem(index) {
   // Remove the item from existingPurchases
@@ -285,6 +285,7 @@ function savePurchases(userId, tripName, tripId) {
     userId: userId,
     tripId: tripId,
     tripName: tripName,
+    tripDate: tripDate,
     category: tripCategory,
     purchases: existingPurchases,
     totalSpending: existingPurchases.reduce(
