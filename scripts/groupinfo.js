@@ -17,13 +17,23 @@ function getUserName(owner) {
     });
 }
 
+function getItemName(item) {
+    console.log(item)
+    var empty_string = '';
+    for (let y of item) {
+        console.log(123);
+        empty_string += `${y["name"]} : $ ${y["price"]} \n `;
+    }
+    console.log(empty_string);
+    document.getElementById("group_items").innerText = empty_string;
+}
 
 function membersNames(member_list){
     console.log(member_list)
     var empty_string = '';
     for (let y of member_list) {
         console.log(123);
-        empty_string += `${y} ~ `;
+        empty_string += `${y}\n`;
     }
     console.log(empty_string);
     document.getElementById("group_members").innerText = empty_string;
@@ -65,20 +75,24 @@ function getInfo() {
                         var name = doc.data().title;
                         var description = doc.data().description;
                         var owner = doc.data().owner;
+                        var minimum = doc.data().minPrice;
                         var category = doc.data().category;
                         var date = doc.data().deadline;
+                        var items = doc.data().items;
                         var member = doc.data().members;
                         var image = doc.data().image;
 
 
                         document.getElementById("group_name").innerText = name;
                         document.getElementById("group_description").innerText = description;
+                        document.getElementById("group_minimum").innerText = minimum;
                         document.getElementById("group_category").innerText = category;
                         document.getElementById("group_date").innerText = date;
                         document.getElementById("group_image").src = image;
 
 
                         getUserName(owner)
+                        getItemName(items)
                         getMemberName(member)
                     } else {
                         console.log("No such document!");

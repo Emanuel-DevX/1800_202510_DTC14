@@ -172,7 +172,7 @@
 
         <div class="shadow h-screen w-11/12 mx-4 flex flex-col">
           <div
-            class="h-5/6 min-w-60 shadow-lg bg-[#323232] text-lime-50 rounded-2xl mb-3 px-4"
+            class="h-full min-w-60 shadow-lg bg-[#323232] text-lime-50 rounded-2xl mb-3 px-4"
           >
             <div class=" place-items-left pt-3 flex items-center overflow-hidden">
           
@@ -197,21 +197,42 @@
               <p class="font-bold">Owner:</p>
               <span id="group_owner"></span>
             </div>
+
             <div
               class="flex px-2 p-1 rounded-xl gap-2 bg-green-900 shadow-md my-8 text-xl overflow-hidden whitespace-nowrap"
             >
+              <p class="font-bold">Min Spending:</p>
+              $<span id="group_minimum"></span> 
+            </div>
+
+            <div class="flex px-2 p-1 rounded-xl gap-2 bg-green-900 shadow-md my-8 text-xl overflow-hidden whitespace-nowrap">
               <p class="font-bold">Category:</p>
               <span id="group_category"></span>
             </div>
+
             <div
               class="flex px-2 p-1 rounded-xl gap-2 bg-green-900 shadow-md my-8 text-xl overflow-hidden whitespace-nowrap"
             >
               <p class="font-bold">Meet Up Date:</p>
               <span id="group_date"></span>
             </div>
-            <div
-              class="flex px-2 p-1 rounded-xl gap-2 bg-green-900 shadow-md my-8 text-xl mb-32"
-            >
+
+            <div class="flex px-2 p-1 rounded-xl gap-2 bg-green-900 shadow-md my-8 text-xl overflow-hidden whitespace-nowrap">
+              <p class="font-bold">Meet Up Time:</p>
+              <span id="group_date"></span>
+            </div>
+
+            <div class="flex px-2 p-1 rounded-xl gap-2 bg-green-900 shadow-md my-8 text-xl overflow-hidden whitespace-nowrap">
+              <p class="font-bold">Location:</p>
+              <span id="group_date"></span>
+            </div>
+
+            <div class="flex px-2 p-1 rounded-xl gap-2 bg-green-900 shadow-md my-8 text-xl">
+              <p class="font-bold">Items:</p>
+              <span id="group_items"></span>
+            </div>
+
+            <div class="flex px-2 p-1 rounded-xl gap-2 bg-green-900 shadow-md my-8 text-xl mb-32">
               <p class="font-bold">Members:</p>
               <span id="group_members"></span>
             </div>
