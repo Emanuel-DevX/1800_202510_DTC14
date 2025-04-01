@@ -559,6 +559,81 @@ confirmSaveBtn.addEventListener("click", async function () {
   //showNotification("Processing your request...", "loading");
 
   try {
+    // First, check if the user is the owner of the group
+    const groupRef = firebase.firestore().collection("Posts").doc(groupId);
+    const groupSnapshot = await groupRef.get();
+
+    if (!groupSnapshot.exists) {
+      showNotification("Group not found.", "error");
+      return;
+    }
+
+    const groupData = groupSnapshot.data();
+    const ownerId = groupData.owner;
+
+    // If the current user is the owner, delete the group and its subcollections
+    if (user.uid === ownerId) {
+      // Delete members subcollection
+      const membersRef = groupRef.collection("members");
+      const membersSnapshot = await membersRef.get();
+      membersSnapshot.forEach(async (doc) => {
+        await doc.ref.delete(); // Delete each member document
+      });
+
+      // Delete any other subcollections if needed (e.g., posts, events, etc.)
+      const postsRef = groupRef.collection("posts");
+      const postsSnapshot = await postsRef.get();
+      postsSnapshot.forEach(async (doc) => {
+        await doc.ref.delete(); // Delete each post document
+      });
+
+      // Finally, delete the main group document itself
+      await groupRef.delete();
+      showNotification("Group and all its data have been deleted.", "success");
+    } else {
+      // User is not the owner, just leave the group
+      await firebase
+        .firestore()
+        .collection("users")
+        .doc(user.uid)
+        .update({
+          groups: firebase.firestore.FieldValue.arrayRemove(groupId), // Removes groupId from user's groups
+        });
+
+      // Remove the user from the group's members
+      await groupRef.update({
+        members: firebase.firestore.FieldValue.arrayRemove(user.uid),
+      });
+
+      showNotification("You have successfully left the group.", "success");
+      console.log("User has left the group");
+    }
+  } catch (error) {
+    console.error("Error updating Firestore:", error);
+    showNotification("Error leaving group: " + error.message, "error");
+  }
+});
+
+
+// You'll need to add this event listener outside the function
+confirmSaveBtn.addEventListener("click", async function () {
+  // Hide confirmation modal
+  confirmationModal.classList.add("hidden");
+
+  // Get the groupId from the dataset
+  const groupId = this.dataset.groupId;
+
+  // Get current user
+  const user = firebase.auth().currentUser;
+  if (!user) {
+    showNotification("You must be logged in to leave a group.", "error");
+    return;
+  }
+
+  // Show loading notification
+  //showNotification("Processing your request...", "loading");
+
+  try {
     // Remove the group from the user's groups in Firestore
     await firebase
       .firestore()
