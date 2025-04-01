@@ -23,7 +23,12 @@ function createGroupCard(groups, docid) {
   title.textContent = groups.title;
   groupInfoDiv.appendChild(title);
 
-  // Add the description
+  // Add the location
+
+  const location = document.createElement("h4");
+  location.className = "text-xs ";
+  location.textContent = groups.location;
+  groupInfoDiv.appendChild(location);
 
   const arrow = document.createElement("p");
   arrow.className = "pt-5 material-icons arrow_forward_ios self-start";

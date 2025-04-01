@@ -19,10 +19,14 @@ function createGroupCard(groups, docid) {
     place.className = "flex justify-between w-full "
     const groupInfoDiv = document.createElement("div");
     const title = document.createElement("h3");
-    title.className = "font-bold text-lg pt-4";
+    title.className = "font-bold text-lg pt-1";
     title.textContent = groups.title;
     groupInfoDiv.appendChild(title);
 
+    const location = document.createElement("h4");
+    location.className = "text-xs ";
+    location.textContent = groups.location;
+    groupInfoDiv.appendChild(location);
 
     const arrow = document.createElement("p")
     arrow.className = "pt-5 material-icons arrow_forward_ios ";

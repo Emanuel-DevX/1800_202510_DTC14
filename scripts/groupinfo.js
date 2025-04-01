@@ -78,6 +78,8 @@ function getInfo() {
                         var minimum = doc.data().minPrice;
                         var category = doc.data().category;
                         var date = doc.data().deadline;
+                        var time = doc.data().time;
+                        var location = doc.data().location;
                         var items = doc.data().items;
                         var member = doc.data().members;
                         var image = doc.data().image;
@@ -88,6 +90,8 @@ function getInfo() {
                         document.getElementById("group_minimum").innerText = minimum;
                         document.getElementById("group_category").innerText = category;
                         document.getElementById("group_date").innerText = date;
+                        document.getElementById("group_time").innerText = time;
+                        document.getElementById("group_location").innerText = location;
                         document.getElementById("group_image").src = image;
 
 
