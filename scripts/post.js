@@ -118,11 +118,13 @@ async function addPost(postData) {
       minPrice: postData.minPrice, // New field for price
       category: postData.category, // New field for category
       deadline: postData.deadline, // New field for deadline
+      location: postData.location,
+      time: postData.time,
       members: postData.members,
       items: postData.items,
     });
     addPostToUsers(docRef.id);
-    toggleGroupJoin(docRef.id)
+    toggleGroupJoin(docRef.id);
 
     console.log("Document added with ID: ", docRef.id);
   } catch (e) {
@@ -177,6 +179,8 @@ function submitForm() {
       const category = document.getElementById("category").value;
       const price = document.getElementById("price").value;
       const deadline = document.getElementById("deadline").value;
+      const shoppingTime = document.getElementById("shopping-time").value;
+      const location = document.getElementById("location").value;
       let items = [];
       document.querySelectorAll("#item-list .item-entry").forEach((itemRow) => {
         let itemName = itemRow.querySelector(".item-name").value;
@@ -192,10 +196,12 @@ function submitForm() {
         description: description,
         image: getPostImage(category),
         title: title,
+        location: location,
         owner: globalUserId,
         minPrice: price, // New price field
         category: category, // New category field
         deadline: deadline, // New deadline field
+        time: shoppingTime,
         members: [globalUserId],
         items: items,
       };
@@ -334,6 +340,11 @@ function createPostCard(post, docId) {
   description.textContent = post.description;
   postInfoDiv.appendChild(description);
 
+  //location
+  const location = document.createElement("p");
+  description.textContent = post.location;
+  postInfoDiv.appendChild(location);
+
   // Add the original price
   const minPrice = document.createElement("p");
   minPrice.innerHTML = `<span class="font-bold">Bulk Discount Min:</span> $${post.minPrice}`;
@@ -352,10 +363,12 @@ function createPostCard(post, docId) {
   postInfoDiv.appendChild(items);
 
   // Add the deadline
+  const time = document.createElement("span");
+  time.innerHTML = post.time;
   const deadline = document.createElement("p");
   deadline.innerHTML = `<span class="font-bold">Deadline:</span> ${new Date(
     post.deadline
-  ).toLocaleDateString()}`;
+  ).toLocaleDateString()} @ ${time.innerText}`;
   postInfoDiv.appendChild(deadline);
 
   // Add the posted by
@@ -448,7 +461,6 @@ async function toggleGroupJoin(groupId) {
     }
   });
 }
-
 
 const cancelBtn = document.getElementById("cancel-btn");
 const confirmationModal = document.getElementById("confirmation-modal");
