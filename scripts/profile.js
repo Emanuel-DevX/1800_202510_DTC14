@@ -225,8 +225,15 @@
           //     });
           // }
 
+          // Get selected avatar URL
+          const selectedAvatar = document.getElementById("avatar-select").value; // Get selected avatar
+
+
           // Update profile data
           updateProfilePromise
+            ({
+              photoURL: selectedAvatar, // update profile with selected avator
+            })
             .then(() => {
               // Update display name
               return user.updateProfile({
@@ -291,9 +298,10 @@
             })
             .then(() => {
               showNotification("Profile updated successfully!", "success");
+              // comment below out for changing profile photo feature from uploading to avatar
               // Reset the file selection
-              selectedFile = null;
-              profilePicInput.value = "";
+              // selectedFile = null;
+              // profilePicInput.value = "";
             })
             .catch((error) => {
               console.error("Error updating profile:", error);
