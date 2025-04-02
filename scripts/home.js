@@ -16,6 +16,12 @@ async function insertNameFromFirestore() {
         if (namePlaceholder) {
           namePlaceholder.innerHTML = userName;
         }
+        const profileIcon = document.getElementById("profile-icon");
+
+        let profilePic = userDoc.data().photoURL;
+        if (profilePic != null && profilePic != "" && profileIcon) {
+          profileIcon.src = profilePic;
+        }
       } catch (error) {
         console.error("Error fetching user data:", error);
       }

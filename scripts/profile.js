@@ -165,6 +165,7 @@
             const option = document.createElement("option");
             option.value = avatar.path;
             option.textContent = avatar.name;
+
             option.style.backgroundImage = `url(${avatar.path})`;
             option.style.backgroundSize = "20px 20px";
             option.style.backgroundRepeat = "no-repeat";
@@ -282,6 +283,7 @@
                   country: document.getElementById("country").value,
                 },
                 preferences: preferences,
+                photoURL: selectedAvatar,
                 groupSettings: {
                   maxDistance: document.getElementById("max-distance").value,
                   groupSize: document.getElementById("group-size").value,
