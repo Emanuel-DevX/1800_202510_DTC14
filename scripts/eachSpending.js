@@ -8,6 +8,15 @@ let tripDate = "";
 function getInfoFromAuth() {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
+
+      // Update profile icon with user's avatar - ADDED HERE
+      const profileIcon = document.getElementById("profile-icon");
+      if (profileIcon && user.photoURL) {
+        profileIcon.src = user.photoURL; // Set the user's avatar image
+      } else {
+        profileIcon.src = "images/profile.jpg"; // Default avatar image
+      }
+
       const trip_id = localStorage.getItem("trip_id_local");
 
       // Fetch trip details

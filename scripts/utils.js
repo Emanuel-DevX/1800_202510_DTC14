@@ -27,6 +27,12 @@ function insertNameFromFirestore() {
         let userName = userDoc.data().name;
         console.log(userName);
         namePlaceholder = document.getElementById("name-goes-here");
+        const profileIcon = document.getElementById("profile-icon");
+
+        let profilePic = userDoc.data().photoURL;
+        if (profilePic != null && profilePic != "" && profileIcon){
+          profileIcon.src = profilePic;
+        } 
 
         if (namePlaceholder) namePlaceholder.innerHTML = userName;
       });

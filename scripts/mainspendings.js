@@ -1,4 +1,31 @@
-const userId = localStorage.getItem("userIdLocal");
+
+firebase.auth().onAuthStateChanged(async (user) => {
+  if (user) {
+    // User is logged in
+    console.log("User is logged in:", user);
+
+    // Highlighted: Update profile icon with user's avatar
+    const profileIcon = document.getElementById("profile-icon");
+    if (profileIcon && user.photoURL) {
+      profileIcon.src = user.photoURL; // Set the user's avatar image
+    } else {
+      profileIcon.src = "images/profile.jpg"; // Default avatar image
+    }
+
+    // Highlighted: Fetch spending data for the logged-in user
+    const userId = user.uid; // Use Firebase's authenticated user ID
+    await fetchSpendingData(userId);
+    await fetchRecentSpendingData(userId);
+
+    // Highlighted: Add event listener for managing spending
+    document.getElementById("manage_spending").addEventListener("click", () => {
+      document.location.href = "spendings.html";
+    });
+  } else {
+    // User is not logged in
+    console.log("No user is logged in.");
+  }
+});
 
 async function fetchSpendingData(userId) {
   const spendingData = {};
