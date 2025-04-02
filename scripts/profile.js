@@ -283,7 +283,11 @@
                   country: document.getElementById("country").value,
                 },
                 preferences: preferences,
+<<<<<<< HEAD
                 photoURL: selectedAvatar,
+=======
+                photoURL:selectedAvatar,
+>>>>>>> temp-branch
                 groupSettings: {
                   maxDistance: document.getElementById("max-distance").value,
                   groupSize: document.getElementById("group-size").value,
