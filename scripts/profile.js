@@ -114,32 +114,72 @@
             });
         }
 
+        // comment below out for changing profile photo feature from uploading to avatar
+
         // Handle profile picture upload
-        uploadBtn.addEventListener("click", function () {
-          profilePicInput.click();
+        // uploadBtn.addEventListener("click", function () {
+        //   profilePicInput.click();
+        // });
+        //
+        // profilePicInput.addEventListener("change", function (event) {
+        //   selectedFile = event.target.files[0];
+        //
+        //   if (selectedFile) {
+        //     // Check file size (max 2MB)
+        //     if (selectedFile.size > 2 * 1024 * 1024) {
+        //       showNotification(
+        //         "File is too large. Maximum size is 2MB.",
+        //         "error"
+        //       );
+        //       return;
+        //     }
+        //
+        //     // Preview the image
+        //     const reader = new FileReader();
+        //     reader.onload = function (e) {
+        //       profilePicPreview.src = e.target.result;
+        //     };
+        //     reader.readAsDataURL(selectedFile);
+        //   }
+        // });
+
+
+        // Add the avatar selection dropdown-list feature
+        const avatarOptions = [
+          { path: "images/avatar/avatar1.png", name: "Avatar 1" },
+          { path: "images/avatar/avatar2.png", name: "Avatar 2" },
+          { path: "images/avatar/avatar3.png", name: "Avatar 3" },
+          { path: "images/avatar/avatar4.png", name: "Avatar 4" },
+          { path: "images/avatar/avatar5.png", name: "Avatar 5" },
+          { path: "images/avatar/avatar6.png", name: "Avatar 6" },
+          { path: "images/avatar/avatar7.png", name: "Avatar 7" },
+          { path: "images/avatar/avatar8.png", name: "Avatar 8" },
+          // Add more avatars as needed
+        ];
+
+        const avatarSelect = document.getElementById("avatar-select");
+
+        function populateAvatarDropdown() {
+          avatarOptions.forEach((avatar) => {
+            const option = document.createElement("option");
+            option.value = avatar.path;
+            option.textContent = avatar.name;
+            option.style.backgroundImage = `url(${avatar.path})`;
+            option.style.backgroundSize = "20px 20px";
+            option.style.backgroundRepeat = "no-repeat";
+            option.style.paddingLeft = "25px"; // Add spacing for image
+            avatarSelect.appendChild(option);
+          });
+        }
+
+        populateAvatarDropdown();
+
+        avatarSelect.addEventListener("change", function () {
+          const selectedAvatar = avatarSelect.value;
+          document.getElementById("profile-pic-preview").src = selectedAvatar;
         });
 
-        profilePicInput.addEventListener("change", function (event) {
-          selectedFile = event.target.files[0];
 
-          if (selectedFile) {
-            // Check file size (max 2MB)
-            if (selectedFile.size > 2 * 1024 * 1024) {
-              showNotification(
-                "File is too large. Maximum size is 2MB.",
-                "error"
-              );
-              return;
-            }
-
-            // Preview the image
-            const reader = new FileReader();
-            reader.onload = function (e) {
-              profilePicPreview.src = e.target.result;
-            };
-            reader.readAsDataURL(selectedFile);
-          }
-        });
 
         // Handle form submission
         profileForm.addEventListener("submit", function (event) {
