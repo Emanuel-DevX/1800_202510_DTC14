@@ -282,6 +282,7 @@
                   country: document.getElementById("country").value,
                 },
                 preferences: preferences,
+                photoURL:selectedAvatar,
                 groupSettings: {
                   maxDistance: document.getElementById("max-distance").value,
                   groupSize: document.getElementById("group-size").value,
