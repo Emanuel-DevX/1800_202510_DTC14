@@ -230,7 +230,7 @@
 
 
           // Update profile data
-          updateProfilePromise
+          user.updateProfile
             ({
               photoURL: selectedAvatar, // update profile with selected avator
             })
