@@ -204,23 +204,26 @@
           // Show loading notification
           showNotification("Saving your profile...", "loading");
 
-          // First upload profile picture if selected
-          let updateProfilePromise = Promise.resolve();
-          if (selectedFile) {
-            const storageRef = firebase.storage().ref();
-            const fileRef = storageRef.child(`profile_pictures/${user.uid}`);
 
-            updateProfilePromise = fileRef
-              .put(selectedFile)
-              .then((snapshot) => snapshot.ref.getDownloadURL())
-              .then((downloadURL) => {
-                fileURL = downloadURL;
-                // Update user profile with photo URL
-                return user.updateProfile({
-                  photoURL: downloadURL,
-                });
-              });
-          }
+          // comment below out for changing profile photo feature from uploading to avatar
+
+          // First upload profile picture if selected
+          // let updateProfilePromise = Promise.resolve();
+          // if (selectedFile) {
+          //   const storageRef = firebase.storage().ref();
+          //   const fileRef = storageRef.child(`profile_pictures/${user.uid}`);
+          //
+          //   updateProfilePromise = fileRef
+          //     .put(selectedFile)
+          //     .then((snapshot) => snapshot.ref.getDownloadURL())
+          //     .then((downloadURL) => {
+          //       fileURL = downloadURL;
+          //       // Update user profile with photo URL
+          //       return user.updateProfile({
+          //         photoURL: downloadURL,
+          //       });
+          //     });
+          // }
 
           // Update profile data
           updateProfilePromise
