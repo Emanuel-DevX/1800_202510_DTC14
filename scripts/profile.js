@@ -42,6 +42,7 @@
           // Set profile picture if available
           if (user.photoURL) {
             profilePicPreview.src = user.photoURL;
+            avatarSelect.value = user.photoURL;   // set drop down to the correct avator
           }
 
           // Fetch additional user data from Firestore
