@@ -19,18 +19,19 @@ async function insertNameFromFirestore() {
         const profileIcon = document.getElementById("profile-icon");
 
         let profilePic = userDoc.data().photoURL;
+
         if (profilePic != null && profilePic != "" && profileIcon) {
           profileIcon.src = profilePic;
-        }
-
-
-        // Update profile icon with user's avatar
-         profileIcon = document.getElementById("profile-icon");
-        if (profileIcon && user.photoURL) {
-          profileIcon.src = user.photoURL; // Set the avatar image
         } else {
           profileIcon.src = "images/profile.jpg"; // Default avatar image
         }
+
+
+        // // Update profile icon with user's avatar
+        //  profileIcon = document.getElementById("profile-icon");
+        // if (profileIcon && user.photoURL) {
+        //   profileIcon.src = user.photoURL; // Set the avatar image
+        // }
 
       } catch (error) {
         console.error("Error fetching user data:", error);
