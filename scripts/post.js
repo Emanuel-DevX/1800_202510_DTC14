@@ -308,7 +308,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Loop through each post card
       allPosts.forEach((post) => {
         // Find the category element within the post
-        const categoryElement = post.querySelector("p:nth-of-type(3)"); // Assuming category is the third paragraph
+        const categoryElement = post.querySelector("p:nth-of-type(4)"); // Assuming category is the third paragraph
 
         if (categoryElement) {
           const postCategory = categoryElement.textContent
