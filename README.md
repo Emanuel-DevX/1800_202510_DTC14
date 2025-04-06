@@ -70,7 +70,6 @@ CommunityCart/
 ├── images/
 │ ├── *.jpg / *.png / *.gif # UI images, backgrounds, product photos, etc.
 │ └── favicon_io/ # Favicon assets
-├── pages/ # (Currently unused directory)
 ├── scripts/
 │ ├── firebaseAPI_DTC14.js # Firebase config and initialization
 │ ├── authentication.js # Auth functions (login/logout/session management)
@@ -93,15 +92,15 @@ CommunityCart/
 
 ## 👥 Contributors
 
-- **Emanuel Fisha Molla** – BCIT CST Student  
+- **Emanuel F Molla ([Emanuel-DevX](https://github.com/Emanuel-DevX))** – BCIT CST Student  
   - Main Design and development both in backend and frontend,  
   - Fun Fact: Loves playing chess ("Aka wasting time, depending on the day.")  
 
-- **Jun** – BCIT CST Student  
+- **Jun Zhou ([bc2509](https://github.com/bc2509))** – BCIT CST Student  
   - UI/UX Design Contributor  
   - Assisted in structuring frontend templates and layout.
 
-- **Allen** – BCIT CST Student  
+- **Allen Rosales ([AllenR-SetF](https://github.com/AllenR-SetF))** – BCIT CST Student  
   - Frontend & UI/UX Design Support 
   - Fun Fact: Enjoys solving puzzles and writing clean, elegant code.
 
